@@ -1,1857 +1,1470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hallohom— AI Material Intelligence Project</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --bg: #FFFFFF;
-    --bg-secondary: #FAFAFA;
-    --text: #111111;
-    --text-secondary: #6B6B6B;
-    --border: #ECECEC;
-    --accent: #4F46E5;
-    --accent-hover: #4338CA;
-    --accent-light: rgba(79, 70, 229, 0.08);
-    --radius: 24px;
-    --radius-sm: 16px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
-    --shadow-lg: 0 12px 48px rgba(0,0,0,0.08);
-    --shadow-xl: 0 24px 80px rgba(0,0,0,0.10);
-    --container: 1280px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 18px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  .container {
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  /* ── HEADER ── */
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    transition: var(--transition);
-  }
-
-  header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-  }
-
-  .logo {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-  }
-
-  nav a {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color var(--transition);
-    letter-spacing: -0.01em;
-  }
-
-  nav a:hover { color: var(--text); }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background: var(--text);
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition);
-    letter-spacing: -0.01em;
-  }
-
-  .btn-primary:hover {
-    background: #333;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition);
-    letter-spacing: -0.01em;
-  }
-
-  .btn-secondary:hover {
-    border-color: #ccc;
-    background: var(--bg-secondary);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    padding: 160px 0 120px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .hero-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: var(--accent-light);
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 32px;
-  }
-
-  .hero-label::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .hero h1 {
-    font-size: 80px;
-    font-weight: 900;
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    color: var(--text);
-    margin-bottom: 28px;
-  }
-
-  .hero p {
-    font-size: 18px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 440px;
-    margin-bottom: 40px;
-    font-weight: 400;
-  }
-
-  .hero-ctas {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .hero-visual {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 520px;
-  }
-
-  .stone-render {
-    width: 100%;
-    max-width: 520px;
-    aspect-ratio: 1;
-    border-radius: 32px;
-    object-fit: cover;
-    filter: drop-shadow(0 32px 64px rgba(0,0,0,0.10));
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-
-  .stone-shadow {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 40px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: shadow-pulse 6s ease-in-out infinite;
-  }
-
-  @keyframes shadow-pulse {
-    0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-    50% { transform: translateX(-50%) scale(0.9); opacity: 0.7; }
-  }
-
-  /* ── SECTIONS ── */
-  section {
-    padding: 120px 0;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
-  }
-
-  .section-desc {
-    font-size: 18px;
-    color: var(--text-secondary);
-    max-width: 560px;
-    line-height: 1.7;
-  }
-
-  /* ── WHY PILOT ── */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin-top: 72px;
-    background: var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .why-card {
-    background: var(--bg);
-    padding: 48px 40px;
-    transition: all var(--transition);
-  }
-
-  .why-card:hover {
-    background: var(--bg-secondary);
-  }
-
-  .why-icon {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: var(--accent-light);
-    color: var(--accent);
-    margin-bottom: 24px;
-  }
-
-  .why-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-
-  .why-card p {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  /* ── HOW IT WORKS ── */
-  .steps-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    margin-top: 72px;
-    position: relative;
-  }
-
-  .steps-row::before {
-    content: '';
-    position: absolute;
-    top: 28px;
-    left: 40px;
-    right: 40px;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .step-item {
-    text-align: center;
-    position: relative;
-    padding: 0 12px;
-  }
-
-  .step-number {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0 auto 24px;
-    position: relative;
-    z-index: 1;
-    transition: all var(--transition);
-  }
-
-  .step-item:hover .step-number {
-    background: var(--text);
-    color: #fff;
-    border-color: var(--text);
-  }
-
-  .step-item h4 {
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 8px;
-  }
-
-  .step-item p {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-
-  /* ── WHO IT'S FOR ── */
-  .who-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 72px;
-  }
-
-  .who-card {
-    padding: 40px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    transition: all var(--transition);
-    background: var(--bg);
-  }
-
-  .who-card:hover {
-    border-color: #ddd;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-
-  .who-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
-
-  .who-card ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .who-card li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .who-card li i {
-    width: 16px;
-    height: 16px;
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .who-card.wide {
-    grid-column: span 2;
-  }
-
-  /* ── IMPACT ── */
-  .impact-section {
-    background: var(--bg-secondary);
-  }
-
-  .impact-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    margin-top: 72px;
-    background: var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .impact-item {
-    background: var(--bg);
-    padding: 56px 40px;
-    text-align: center;
-  }
-
-  .impact-number {
-    font-size: 64px;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: 12px;
-    color: var(--text);
-  }
-
-  .impact-label {
-    font-size: 14px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    letter-spacing: 0.01em;
-  }
-
-  /* ── FINAL CTA ── */
-  .final-cta .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .final-cta h2 {
-    font-size: 56px;
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    margin-bottom: 20px;
-  }
-
-  .final-cta p {
-    font-size: 18px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 36px;
-    max-width: 480px;
-  }
-
-  .final-cta .ctas {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .info-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px;
-  }
-
-  .info-card h4 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
-
-  .info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .info-item:last-child { border-bottom: none; }
-
-  .info-item i {
-    width: 20px;
-    height: 20px;
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .info-item span {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 64px 0;
-    border-top: 1px solid var(--border);
-  }
-
-  footer .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-left {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-  }
-
-  .footer-nav {
-    display: flex;
-    gap: 32px;
-  }
-
-  .footer-nav a {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color var(--transition);
-  }
-
-  .footer-nav a:hover { color: var(--text); }
-
-  .footer-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .footer-right a {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: var(--text-secondary);
-    transition: all var(--transition);
-  }
-
-  .footer-right a:hover {
-    color: var(--text);
-    background: var(--bg-secondary);
-  }
-
-  .footer-email {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    margin-right: 12px;
-    transition: color var(--transition);
-  }
-
-  .footer-email:hover { color: var(--text); }
-
-  /* ── MODAL OVERLAY ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .modal-overlay.active .modal {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  .modal {
-    background: var(--bg);
-    border-radius: 28px;
-    box-shadow: var(--shadow-xl);
-    width: 100%;
-    max-width: 920px;
-    max-height: 90vh;
-    position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    transform: scale(0.95);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .modal::-webkit-scrollbar { width: 6px; }
-  .modal::-webkit-scrollbar-track { background: transparent; }
-  .modal::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
-
-  .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: none;
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all var(--transition);
-    z-index: 10;
-  }
-
-  .modal-close:hover {
-    background: var(--border);
-    color: var(--text);
-  }
-
-  /* ── APPLICATION MODAL ── */
-  .app-modal-inner {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    position: relative;
-  }
-
-  .app-modal-left {
-    background: var(--bg-secondary);
-    padding: 48px 36px;
-    border-radius: 28px 0 0 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .app-modal-left img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.15;
-  }
-
-  .app-modal-left .content {
-    position: relative;
-    z-index: 1;
-  }
-
-  .app-modal-left h3 {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
-  }
-
-  .app-modal-left p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  .app-modal-right {
-    padding: 48px;
-    position: relative;
-  }
-
-  .step-indicator {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 36px;
-  }
-
-  .step-dot {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    letter-spacing: 0.02em;
-    transition: color var(--transition);
-  }
-
-  .step-dot.active {
-    color: var(--accent);
-  }
-
-  .step-dot-line {
-    width: 32px;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .step-dot-line.active {
-    background: var(--accent);
-  }
-
-  .form-group {
-    margin-bottom: 20px;
-  }
-
-  .form-group label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    font-family: inherit;
-    font-size: 15px;
-    color: var(--text);
-    background: var(--bg);
-    transition: all var(--transition);
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .form-group input::placeholder {
-    color: #bbb;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-light);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .form-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
-
-  .form-login {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color var(--transition);
-  }
-
-  .form-login:hover { color: var(--accent); }
-
-  /* ── SUCCESS MODAL ── */
-  .success-modal {
-    max-width: 540px;
-    text-align: center;
-    padding: 56px 48px;
-  }
-
-  .success-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 28px;
-    display: block;
-  }
-
-  .success-icon {
-    width: 64px;
-    height: 64px;
-    background: var(--accent-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    color: var(--accent);
-  }
-
-  .success-modal h2 {
-    font-size: 36px;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
-  }
-
-  .success-modal > p {
-    font-size: 16px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 40px;
-    max-width: 380px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .success-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: var(--border);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    margin-bottom: 40px;
-  }
-
-  .success-feature {
-    background: var(--bg);
-    padding: 28px 16px;
-    text-align: center;
-  }
-
-  .success-feature i {
-    width: 24px;
-    height: 24px;
-    color: var(--accent);
-    margin: 0 auto 12px;
-  }
-
-  .success-feature span {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.4;
-  }
-
-  /* ── SCROLL ANIMATIONS ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-
-  /* ── MOBILE MENU ── */
-  .mobile-menu-btn {
-    display: none;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background: none;
-    color: var(--text);
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background var(--transition);
-  }
-
-  .mobile-menu-btn:hover {
-    background: var(--bg-secondary);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .hero .container {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-
-    .hero h1 { font-size: 60px; }
-    .hero-visual { min-height: 360px; }
-    .stone-render { max-width: 360px; }
-
-    .why-grid { grid-template-columns: repeat(2, 1fr); }
-    .why-grid .why-card:last-child { grid-column: span 2; }
-
-    .steps-row { grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .steps-row::before { display: none; }
-    .steps-row .step-item:nth-child(4),
-    .steps-row .step-item:nth-child(5) {
-      margin-top: 40px;
-    }
-
-    .who-grid { grid-template-columns: repeat(2, 1fr); }
-    .who-card.wide { grid-column: span 2; }
-
-    .impact-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .final-cta .container {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-
-    .app-modal-inner { grid-template-columns: 1fr; }
-    .app-modal-left { display: none; }
-  }
-
-  @media (max-width: 768px) {
-    .container { padding: 0 24px; }
-
-    nav { display: none; }
-
-    .mobile-menu-btn { display: flex; }
-
-    .hero { padding: 130px 0 80px; }
-    .hero h1 { font-size: 44px; line-height: 0.95; }
-    .hero p { font-size: 16px; }
-    .hero-ctas { flex-direction: column; align-items: flex-start; }
-    .hero-visual { min-height: 280px; }
-    .stone-render { max-width: 280px; }
-
-    section { padding: 80px 0; }
-    .section-title { font-size: 32px; }
-    .section-desc { font-size: 16px; }
-
-    .why-grid { grid-template-columns: 1fr; }
-    .why-grid .why-card:last-child { grid-column: span 1; }
-
-    .steps-row { grid-template-columns: 1fr; gap: 0; }
-    .steps-row .step-item { 
-      display: grid; 
-      grid-template-columns: 56px 1fr;
-      text-align: left;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .steps-row .step-item:last-child { border-bottom: none; }
-    .steps-row .step-number { margin: 0; }
-    .steps-row .step-item:nth-child(4),
-    .steps-row .step-item:nth-child(5) { margin-top: 0; }
-
-    .who-grid { grid-template-columns: 1fr; }
-    .who-card.wide { grid-column: span 1; }
-
-    .impact-grid { grid-template-columns: repeat(2, 1fr); }
-    .impact-number { font-size: 44px; }
-    .impact-item { padding: 36px 24px; }
-
-    .final-cta h2 { font-size: 36px; }
-
-    .modal-overlay {
-      padding: 12px;
-      align-items: flex-end;
-    }
-
-    .modal {
-      max-height: 92vh;
-      border-radius: 24px 24px 0 0;
-    }
-
-    .modal-close {
-      position: sticky;
-      top: 14px;
-      right: 14px;
-      margin: 14px 14px 0 auto;
-      width: 36px;
-      height: 36px;
-    }
-
-    .app-modal-right { padding: 12px 24px 32px; }
-    .step-indicator {
-      gap: 10px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-    .step-dot {
-      font-size: 11px;
-    }
-    .step-dot-line {
-      width: 20px;
-    }
-    .form-row { grid-template-columns: 1fr; }
-    .form-actions {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
-    }
-    .form-actions .btn-primary,
-    .form-actions .btn-secondary {
-      width: 100%;
-      justify-content: center;
-    }
-    .form-login {
-      text-align: center;
-    }
-
-    .success-modal { padding: 40px 24px; }
-    .success-features { grid-template-columns: 1fr; }
-
-    footer .container {
-      flex-direction: column;
-      gap: 32px;
-      text-align: center;
-    }
-
-    .footer-left { flex-direction: column; gap: 16px; }
-  }
-
-  @media (max-width: 480px) {
-    .container { padding: 0 18px; }
-
-    .hero h1 {
-      font-size: 36px;
-    }
-
-    .section-title,
-    .final-cta h2 {
-      font-size: 28px;
-    }
-
-    .modal-overlay {
-      padding: 0;
-    }
-
-    .modal {
-      max-height: 100vh;
-      border-radius: 22px 22px 0 0;
-    }
-
-    .modal-close {
-      top: 12px;
-      right: 12px;
-      margin: 12px 12px 0 auto;
-    }
-
-    .app-modal-right,
-    .success-modal {
-      padding: 28px 18px;
-    }
-
-    .step-indicator {
-      margin-bottom: 24px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group input,
-    .form-group select {
-      padding: 14px 16px;
-      font-size: 16px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      min-height: 48px;
-    }
-  }
-
-  /* ── SELECTION ── */
-  ::selection {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  /* ── FOCUS ── */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hallohom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #2563EB;
+            --blue-light: #EFF6FF;
+            --blue-highlight: #DBEAFE;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            --bg-white: #FFFFFF;
+            --bg-subtle: #F8FAFC;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+            --card-shadow-hover: 0 10px 30px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 48px;
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E9E3D7;
+            border-top: 1px solid #D6B38E;
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #171717;
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #0B0B0F;
+            color: white;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(11, 11, 15, 0.14);
+        }
+
+        /* ============ MAIN CONTAINER ============ */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ============ SECTION 1: WHY PILOT ============ */
+        .section-why-pilot {
+            padding-top: 160px;
+            padding-bottom: 120px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--text-tertiary);
+        }
+
+        .hero-heading {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            color: var(--text-primary);
+            margin-bottom: 36px;
+            max-width: 900px;
+        }
+
+        .blue-highlight {
+            background: var(--blue-highlight);
+            color: var(--blue);
+            padding: 2px 10px;
+            border-radius: 4px;
+            display: inline;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin-bottom: 80px;
+            font-weight: 400;
+        }
+
+        /* ============ THREE CARDS ============ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pilot-card {
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            background: var(--bg-white);
+            box-shadow: var(--card-shadow);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .pilot-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pilot-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+            border-color: #CBD5E1;
+        }
+
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            color: var(--blue);
+        }
+
+        .card-icon-wrapper i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* ============ SECTION 2: WHO IT'S FOR ============ */
+        .section-who {
+            padding-top: 40px;
+            padding-bottom: 140px;
+        }
+
+        .section-label-blue {
+            color: var(--blue);
+        }
+
+        .section-label-blue::before {
+            background: var(--blue);
+        }
+
+        .blue-highlight-lg {
+            background: var(--blue-highlight);
+            color: var(--blue);
+            padding: 4px 14px;
+            border-radius: 8px;
+            display: inline;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        .who-heading {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1.04;
+            letter-spacing: -0.035em;
+            color: var(--text-primary);
+            margin-bottom: 28px;
+            max-width: 900px;
+        }
+
+        .who-description {
+            font-size: 20px;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            max-width: 860px;
+            margin-bottom: 44px;
+            font-weight: 400;
+        }
+
+        .who-main-card {
+            background: var(--bg-white);
+            border: 1px solid #E9E9EF;
+            border-radius: 22px;
+            padding: 36px 36px 30px;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+        }
+
+        .who-card-header {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            padding: 12px 12px 30px;
+        }
+
+        .who-card-header-icon {
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, #F5F2FF 0%, #EEEAFE 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5B3DF5;
+        }
+
+        .who-card-header-title {
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            max-width: 420px;
+        }
+
+        .who-divider-h {
+            height: 1px;
+            background: #ECEBF3;
+            margin: 6px 0 30px;
+        }
+
+        .who-features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .who-feature-block {
+            padding: 12px 30px 18px 12px;
+            position: relative;
+        }
+
+        .who-feature-border-r {
+            border-right: 1px solid #ECEBF3;
+        }
+
+        .who-feature-border-t {
+            border-top: 1px solid #ECEBF3;
+            margin-top: 10px;
+            padding-top: 28px;
+        }
+
+        .who-feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: #5B3DF5;
+        }
+
+        .who-feature-heading {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .who-feature-desc {
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .who-info-bar {
+            margin-top: 34px;
+            padding: 24px 28px;
+            background: #F7F5FF;
+            border: 1px solid #EEEAFE;
+            border-radius: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .who-info-bar-icon {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 999px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            color: #5B3DF5;
+        }
+
+        .who-info-bar-content {
+            flex: 1;
+        }
+
+        .who-info-bar-title {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .who-info-bar-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 680px;
+        }
+
+        .who-traits {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .who-traits li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .who-traits li .trait-icon {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-top: 1px;
+            color: var(--blue);
+        }
+
+        .who-kerala-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: var(--blue-light);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--blue);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .who-kerala-notice i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .who-right-content {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .who-right-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .who-private-note {
+            padding: 36px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg-subtle);
+        }
+
+        .who-private-note .note-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+        }
+
+        .who-private-note .note-text {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+
+        .who-private-note .note-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .who-heading {
+                font-size: 40px;
+            }
+
+            .who-main-card {
+                padding: 28px 28px 24px;
+            }
+
+            .who-feature-block {
+                padding: 10px 20px 16px 10px;
+            }
+
+            .who-feature-border-r {
+                padding-left: 0;
+            }
+
+            .who-info-bar {
+                padding: 22px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .who-heading {
+                font-size: 32px;
+            }
+
+            .who-description {
+                font-size: 16px;
+                margin-bottom: 32px;
+            }
+
+            .who-main-card {
+                padding: 20px 18px 18px;
+                border-radius: 18px;
+            }
+
+            .who-features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .who-feature-block,
+            .who-feature-border-r {
+                border-right: none;
+                padding: 18px 8px;
+            }
+
+            .who-feature-border-t {
+                margin-top: 0;
+                padding-top: 18px;
+            }
+
+            .who-info-bar {
+                flex-direction: column;
+                padding: 20px 18px;
+                border-radius: 16px;
+            }
+        }
+
+        /* ============ SECTION 3: JOIN US ============ */
+        .section-join {
+            padding-top: 40px;
+            padding-bottom: 140px;
+        }
+
+        .join-layout {
+            display: grid;
+            grid-template-columns: 1.02fr 1fr;
+            gap: 44px;
+            align-items: start;
+        }
+
+        .join-heading {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            color: var(--text-primary);
+            margin-bottom: 26px;
+            max-width: 620px;
+        }
+
+        .join-description {
+            font-size: 19px;
+            line-height: 1.62;
+            color: var(--text-secondary);
+            margin-bottom: 34px;
+            font-weight: 400;
+            max-width: 620px;
+        }
+
+        .join-private-note {
+            padding: 22px 26px;
+            background: #F7F5FF;
+            border: 1px solid #EEEAFE;
+            border-radius: 18px;
+            margin-bottom: 34px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .join-private-note .note-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5B3DF5;
+        }
+
+        .join-private-note .note-copy {
+            flex: 1;
+        }
+
+        .join-private-note .note-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+
+        .join-private-note .note-text {
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .join-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 44px;
+            flex-wrap: wrap;
+        }
+
+        .join-apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 38px;
+            background: #0B0B0F;
+            color: white;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 12px 26px rgba(11, 11, 15, 0.12);
+        }
+
+        .join-apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(11, 11, 15, 0.18);
+        }
+
+        .join-apply-btn i {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .join-apply-btn:hover i {
+            transform: translateX(3px);
+        }
+
+        .join-secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 30px;
+            border: 1px solid #E2E2EA;
+            border-radius: 100px;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            background: var(--bg-white);
+            transition: all 0.25s ease;
+        }
+
+        .join-secondary-btn:hover {
+            border-color: #CBCBDD;
+            transform: translateY(-1px);
+        }
+
+        .join-pills {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 17px;
+        }
+
+        .join-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .join-pill i {
+            width: 22px;
+            height: 22px;
+            color: #666;
+        }
+
+        /* Benefits List */
+        .benefits-section {
+            background: var(--bg-white);
+            border: 1px solid #E9E9EF;
+            border-radius: 24px;
+            padding: 28px 28px 0;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+        }
+
+        .benefits-label {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 18px 0;
+            border-bottom: 1px solid #ECEBF3;
+        }
+
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5B3DF5;
+        }
+
+        .benefit-content {
+            flex: 1;
+        }
+
+        .benefit-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .benefit-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .benefits-footer {
+            margin-top: 6px;
+            padding: 18px 0 20px;
+            border-top: 1px solid #ECEBF3;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 17px;
+            line-height: 1.55;
+        }
+
+        .benefits-footer i {
+            width: 20px;
+            height: 20px;
+            color: #5B3DF5;
+            flex: 0 0 auto;
+        }
+
+        .benefits-footer strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .join-bottom-strip {
+            margin-top: 42px;
+            padding: 22px 24px;
+            background: #F7F5FF;
+            border: 1px solid #EEEAFE;
+            border-radius: 18px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .join-bottom-left,
+        .join-bottom-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .join-bottom-icon {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            color: #5B3DF5;
+        }
+
+        .join-bottom-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .join-bottom-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .join-divider-vertical {
+            width: 1px;
+            height: 40px;
+            background: #DCDCE8;
+        }
+
+        .status-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-subtext {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .status-badge {
+            padding: 8px 18px;
+            background: var(--blue);
+            color: white;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            border-top: 1px solid var(--border-light);
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-right a {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-right a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============ ANIMATIONS ============ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-up-delay-1 { transition-delay: 0.1s; }
+        .fade-up-delay-2 { transition-delay: 0.2s; }
+        .fade-up-delay-3 { transition-delay: 0.3s; }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .hero-heading {
+                font-size: 48px;
+            }
+
+            .who-heading,
+            .join-heading {
+                font-size: 38px;
+            }
+
+            .who-layout {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .join-layout {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+
+            .pilot-card {
+                padding: 28px 22px;
+            }
+
+            .main-container {
+                padding: 0 32px;
+            }
+
+            .nav {
+                padding: 0 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 20px;
+                height: 60px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .main-container {
+                padding: 0 20px;
+            }
+
+            .section-why-pilot {
+                padding-top: 120px;
+                padding-bottom: 80px;
+            }
+
+            .hero-heading {
+                font-size: 36px;
+                line-height: 1.08;
+                letter-spacing: -0.03em;
+            }
+
+            .hero-description {
+                font-size: 16px;
+                margin-bottom: 48px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .pilot-card {
+                padding: 28px 24px;
+            }
+
+            .section-who {
+                padding-bottom: 80px;
+            }
+
+            .who-heading {
+                font-size: 30px;
+            }
+
+            .who-layout {
+                gap: 40px;
+            }
+
+            .section-join {
+                padding-bottom: 80px;
+            }
+
+            .join-heading {
+                font-size: 40px;
+            }
+
+            .join-layout {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .join-description {
+                font-size: 17px;
+            }
+
+            .join-pills {
+                gap: 18px;
+            }
+
+            .benefits-section {
+                padding: 22px 20px 0;
+            }
+
+            .join-bottom-strip {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .join-divider-vertical {
+                width: 100%;
+                height: 1px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 16px;
+                padding: 32px 20px;
+                text-align: center;
+            }
+
+            .footer-right {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-heading {
+                font-size: 30px;
+            }
+
+            .who-heading {
+                font-size: 26px;
+            }
+
+            .join-heading {
+                font-size: 32px;
+            }
+
+            .who-kerala-notice {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .join-actions {
+                gap: 12px;
+            }
+
+            .join-apply-btn,
+            .join-secondary-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ═══════ HEADER ═══════ -->
-<header>
-  <div class="container">
-    <a href="#" class="logo">hallohom</a>
-    <nav>
-      <a href="#why">Why Pilot</a>
-      <a href="#how">How It Works</a>
-      <a href="#who">Who It's For</a>
-      <a href="#impact">Impact</a>
-      <a href="#faq">FAQ</a>
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="nav">
+        <a href="#" class="nav-brand">hallohom</a>
+        <ul class="nav-links">
+            <li><a href="#why-pilot">Why Pilot</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#who">Who It's For</a></li>
+        </ul>
+        <a href="./prompt.html" class="nav-cta">
+            Join Pilot Program
+            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+        </a>
     </nav>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn-primary" onclick="openModal('app-modal')">
-        Join Pilot Program
-      </button>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
-        <i data-lucide="menu" style="width:20px;height:20px;"></i>
-      </button>
-    </div>
-  </div>
-</header>
 
-<!-- ═══════ HERO ═══════ -->
-<section class="hero">
-  <div class="container">
-    <div>
-      <div class="hero-label reveal">Pilot Program</div>
-      <h1 class="reveal reveal-delay-1">AI Material<br>Intelligence<br>Project</h1>
-      <p class="reveal reveal-delay-2">
-        An exclusive pilot program for architecture and design firms to shape the future of material discovery through artificial intelligence.
-      </p>
-      <div class="hero-ctas reveal reveal-delay-3">
-        <button class="btn-primary" onclick="openModal('app-modal')">
-          Join Pilot Program
-          <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-        </button>
-        <a href="#why" class="btn-secondary">
-          Learn More
-          <i data-lucide="arrow-down" style="width:14px;height:14px;"></i>
-        </a>
-      </div>
-    </div>
-    <div class="hero-visual reveal reveal-delay-2">
-      <img 
-        src="https://i.ibb.co/XxVdpfgj/a40abf93-f237-4f23-8adb-c4a1077814d1.png" 
-        alt="Natural stone material render" 
-        class="stone-render"
-      >
-      <div class="stone-shadow"></div>
-    </div>
-  </div>
-</section>
+    <!-- ============ SECTION 1: WHY PILOT ============ -->
+    <section class="section-why-pilot" id="why-pilot">
+        <div class="main-container">
+            <div class="section-label fade-up">01 — Why Pilot</div>
 
-<!-- ═══════ WHY PILOT ═══════ -->
-<section id="why">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">01 — Why Pilot</div>
-      <h2 class="section-title">Built for those who<br>shape the built world.</h2>
-      <p class="section-desc">
-        Early access to a platform designed from the ground up for material-intensive creative practices.
-      </p>
-    </div>
-    <div class="why-grid reveal reveal-delay-1">
-      <div class="why-card">
-        <div class="why-icon">
-          <i data-lucide="search" style="width:20px;height:20px;"></i>
-        </div>
-        <h3>Intelligent Discovery</h3>
-        <p>AI-powered search that understands material properties, aesthetics, and project context — not just keywords.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <i data-lucide="layers" style="width:20px;height:20px;"></i>
-        </div>
-        <h3>Curated Library</h3>
-        <p>Access to a meticulously vetted collection of materials from trusted suppliers, updated in real time.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <i data-lucide="zap" style="width:20px;height:20px;"></i>
-        </div>
-        <h3>Faster Decisions</h3>
-        <p>Reduce material research time by up to 80%. Compare, shortlist, and specify with unprecedented speed.</p>
-      </div>
-    </div>
-  </div>
-</section>
+            <h1 class="hero-heading fade-up fade-up-delay-1">
+                Built for those who<br>shape <span class="blue-highlight">the built</span> world.
+            </h1>
 
-<!-- ═══════ HOW IT WORKS ═══════ -->
-<section id="how" style="background:var(--bg-secondary);">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">02 — How It Works</div>
-      <h2 class="section-title">Five steps to<br>shape the future.</h2>
-      <p class="section-desc">
-        A structured pilot journey designed for meaningful collaboration and feedback.
-      </p>
-    </div>
-    <div class="steps-row reveal reveal-delay-1">
-      <div class="step-item">
-        <div class="step-number">1</div>
-        <div>
-          <h4>Submit Interest</h4>
-          <p>Apply with your firm details and use case</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-number">2</div>
-        <div>
-          <h4>Onboarding</h4>
-          <p>Personalized setup and team orientation</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-number">3</div>
-        <div>
-          <h4>Test & Explore</h4>
-          <p>Use the platform on real projects</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-number">4</div>
-        <div>
-          <h4>Share Feedback</h4>
-          <p>Structured feedback sessions with our team</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-number">5</div>
-        <div>
-          <h4>Shape Future</h4>
-          <p>Influence the product roadmap directly</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            <p class="hero-description fade-up fade-up-delay-2">
+                We're inviting a select group of architects and designers to explore how AI can reshape the way they discover materials, write specifications, and source products — before anyone else.
+            </p>
 
-<!-- ═══════ WHO IT'S FOR ═══════ -->
-<section id="who">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">03 — Who It's For</div>
-      <h2 class="section-title">Designed for<br>material decision-makers.</h2>
-      <p class="section-desc">
-        From concept to specification, for every professional who touches materials.
-      </p>
-    </div>
-    <div class="who-grid">
-      <div class="who-card wide reveal reveal-delay-1">
-        <h3>Architecture Firms</h3>
-        <ul>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Streamline material selection for large-scale projects</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Maintain consistency across project teams</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Build a firm-wide material knowledge base</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Reduce dependency on manual research</li>
-        </ul>
-      </div>
-      <div class="who-card reveal reveal-delay-2">
-        <h3>Interior Designers</h3>
-        <ul>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Visual-first material browsing</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Mood board to specification flow</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Client-ready material presentations</li>
-        </ul>
-      </div>
-      <div class="who-card reveal reveal-delay-3">
-        <h3>Material Consultants</h3>
-        <ul>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Deep property comparison tools</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Sustainability and performance data</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Supplier relationship management</li>
-        </ul>
-      </div>
-      <div class="who-card reveal reveal-delay-3">
-        <h3>Builders</h3>
-        <ul>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Availability-aware sourcing</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Cost-optimized alternatives</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Regional supplier networks</li>
-        </ul>
-      </div>
-      <div class="who-card wide reveal reveal-delay-4">
-        <h3>Luxury Studios</h3>
-        <ul>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Exclusive and rare material access</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>Curated collections for premium projects</li>
-          <li><i data-lucide="arrow-right" style="width:14px;height:14px;"></i>White-glove onboarding and support</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ IMPACT ═══════ -->
-<section id="impact" class="impact-section">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">04 — Impact So Far</div>
-      <h2 class="section-title">Numbers that<br>speak for themselves.</h2>
-    </div>
-    <div class="impact-grid reveal reveal-delay-1">
-      <div class="impact-item">
-        <div class="impact-number">50+</div>
-        <div class="impact-label">Projects Supported</div>
-      </div>
-      <div class="impact-item">
-        <div class="impact-number">1000+</div>
-        <div class="impact-label">Materials Sourced</div>
-      </div>
-      <div class="impact-item">
-        <div class="impact-number">6+</div>
-        <div class="impact-label">Cities Active</div>
-      </div>
-      <div class="impact-item">
-        <div class="impact-number">1Cr+</div>
-        <div class="impact-label">Material Value Tracked</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ FINAL CTA ═══════ -->
-<section id="faq" class="final-cta">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">05 — Join Us</div>
-      <h2>Let's Build the<br>Future, Together.</h2>
-      <p>
-        We're selecting a limited number of firms for the next pilot cohort. If you work with materials seriously, we want to hear from you.
-      </p>
-      <div class="ctas">
-        <button class="btn-primary" onclick="openModal('app-modal')">
-          Join Pilot Program
-          <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-        </button>
-        <a href="mailto:pilot@hallohom.com" class="btn-secondary">
-          Contact Us
-        </a>
-      </div>
-    </div>
-    <div class="info-card reveal reveal-delay-2">
-      <h4>Pilot Program Details</h4>
-      <div class="info-item">
-        <i data-lucide="clock" style="width:18px;height:18px;"></i>
-        <span>Program duration: 8–12 weeks with dedicated support</span>
-      </div>
-      <div class="info-item">
-        <i data-lucide="shield-check" style="width:18px;height:18px;"></i>
-        <span>Free access during pilot — no credit card required</span>
-      </div>
-      <div class="info-item">
-        <i data-lucide="users" style="width:18px;height:18px;"></i>
-        <span>Up to 5 team members per firm</span>
-      </div>
-      <div class="info-item">
-        <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
-        <span>Bi-weekly feedback sessions with product team</span>
-      </div>
-      <div class="info-item">
-        <i data-lucide="gift" style="width:18px;height:18px;"></i>
-        <span>Founding member benefits upon platform launch</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ FOOTER ═══════ -->
-<footer>
-  <div class="container">
-    <div class="footer-left">
-      <a href="#" class="logo">hallohom</a>
-      <div class="footer-nav">
-        <a href="#why">Why Pilot</a>
-        <a href="#how">How It Works</a>
-        <a href="#who">Who It's For</a>
-        <a href="#impact">Impact</a>
-      </div>
-    </div>
-    <div class="footer-right">
-      <a href="mailto:pilot@hallohom.com" class="footer-email">pilot@hallohom.com</a>
-      <a href="#" aria-label="Twitter"><i data-lucide="twitter" style="width:18px;height:18px;"></i></a>
-      <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:18px;height:18px;"></i></a>
-      <a href="#" aria-label="Instagram"><i data-lucide="instagram" style="width:18px;height:18px;"></i></a>
-    </div>
-  </div>
-</footer>
-
-<!-- ═══════ APPLICATION MODAL ═══════ -->
-<div class="modal-overlay" id="app-modal" onclick="handleOverlayClick(event, 'app-modal')">
-  <div class="modal" role="dialog" aria-modal="true" aria-label="Join Pilot Program">
-    <button class="modal-close" onclick="closeModal('app-modal')" aria-label="Close">
-      <i data-lucide="x" style="width:18px;height:18px;"></i>
-    </button>
-    <div class="app-modal-inner">
-      <div class="app-modal-left">
-        <img src="https://i.ibb.co/2Hn43Rg/2026-07-28-22-45.png" alt="">
-        <div class="content">
-          <h3>Join Pilot Program</h3>
-          <p>Be among the first to experience AI-powered material intelligence. Limited spots available.</p>
-        </div>
-      </div>
-      <div class="app-modal-right">
-        <div class="step-indicator">
-          <span class="step-dot active" id="step-label-1">01 Your Details</span>
-          <span class="step-dot-line" id="step-line"></span>
-          <span class="step-dot" id="step-label-2">02 About Your Firm</span>
-        </div>
-
-        <!-- Step 1 -->
-        <form id="pilot-form" onsubmit="return false;">
-          <div id="form-step-1">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="f-name" placeholder="John Doe" required maxlength="60">
-              </div>
-              <div class="form-group">
-                <label>Designation</label>
-                <input type="text" id="f-designation" placeholder="Principal Architect" maxlength="60">
-              </div>
+            <div class="cards-grid">
+                <div class="pilot-card" data-delay="0">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3 class="card-title">Early Access</h3>
+                    <p class="card-description">Be the first to experience new AI workflows designed specifically for architecture and material specification.</p>
+                </div>
+                <div class="pilot-card" data-delay="100">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="compass"></i>
+                    </div>
+                    <h3 class="card-title">Shape the Product</h3>
+                    <p class="card-description">Your feedback directly influences product decisions — from features to UX to the problems we solve first.</p>
+                </div>
+                <div class="pilot-card" data-delay="200">
+                    <div class="card-icon-wrapper">
+                        <i data-lucide="crown"></i>
+                    </div>
+                    <h3 class="card-title">Founding Benefits</h3>
+                    <p class="card-description">Pilot participants receive priority support, lifetime early-access pricing, and a founding member status.</p>
+                </div>
             </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="f-email" placeholder="john@studio.com" required maxlength="120" inputmode="email">
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" id="f-phone" placeholder="+91 98765 43210" inputmode="tel" maxlength="20">
-              </div>
-              <div class="form-group">
-                <label>Location</label>
-                <input type="text" id="f-location" placeholder="Mumbai, India" maxlength="80">
-              </div>
-            </div>
-            <div class="form-actions">
-              <a href="#" class="form-login">Already applied? <strong>Login</strong></a>
-              <button type="button" class="btn-primary" onclick="goToStep(2)">
-                Next
-                <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
-              </button>
-            </div>
-          </div>
+        </div>
+    </section>
 
-          <!-- Step 2 -->
-          <div id="form-step-2" style="display:none;">
-            <div class="form-group">
-              <label>Studio / Firm Name</label>
-              <input type="text" id="f-studio" placeholder="Studio Name Architects" maxlength="80">
+    <section id="how-it-works" aria-label="How It Works" style="height: 1px; overflow: hidden;"></section>
+
+    <!-- ============ SECTION 2: WHO IT'S FOR ============ -->
+    <section class="section-who" id="who">
+        <div class="main-container">
+            <div class="section-label section-label-blue fade-up">02 — WHO IT'S FOR</div>
+
+            <h2 class="who-heading fade-up">
+                Designed for architects who want to <span class="blue-highlight-lg">shape what's next.</span>
+            </h2>
+
+            <p class="who-description fade-up fade-up-delay-1">
+                A private pilot for architecture firms that love experimenting, adopting change early, and building the future of practice.
+            </p>
+
+            <div class="who-main-card fade-up fade-up-delay-2">
+                <div class="who-card-header">
+                    <div class="who-card-header-icon">
+                        <i data-lucide="users-2"></i>
+                    </div>
+                    <div class="who-card-header-title">
+                        This pilot is for architecture firms that:
+                    </div>
+                </div>
+
+                <div class="who-divider-h"></div>
+
+                <div class="who-features-grid">
+                    <div class="who-feature-block who-feature-border-r">
+                        <div class="who-feature-icon">
+                            <i data-lucide="flask-conical"></i>
+                        </div>
+                        <div class="who-feature-heading">Love experimenting</div>
+                        <div class="who-feature-desc">You enjoy testing new ideas and workflows before they become mainstream.</div>
+                    </div>
+
+                    <div class="who-feature-block who-feature-border-r">
+                        <div class="who-feature-icon">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <div class="who-feature-heading">Believe in AI’s potential</div>
+                        <div class="who-feature-desc">You see AI as a powerful enabler for better design decisions and processes.</div>
+                    </div>
+
+                    <div class="who-feature-block">
+                        <div class="who-feature-icon">
+                            <i data-lucide="square-pen"></i>
+                        </div>
+                        <div class="who-feature-heading">Want to influence the product</div>
+                        <div class="who-feature-desc">You want your feedback to directly shape how this tool evolves.</div>
+                    </div>
+
+                    <div class="who-feature-block who-feature-border-t who-feature-border-r">
+                        <div class="who-feature-icon">
+                            <i data-lucide="rocket"></i>
+                        </div>
+                        <div class="who-feature-heading">Adopt change early</div>
+                        <div class="who-feature-desc">You are comfortable working with products that are still in development.</div>
+                    </div>
+
+                    <div class="who-feature-block who-feature-border-t who-feature-border-r">
+                        <div class="who-feature-icon">
+                            <i data-lucide="message-square-more"></i>
+                        </div>
+                        <div class="who-feature-heading">Work on real projects</div>
+                        <div class="who-feature-desc">You can apply the pilot on live projects and share honest, actionable feedback.</div>
+                    </div>
+
+                    <div class="who-feature-block who-feature-border-t">
+                        <div class="who-feature-icon">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <div class="who-feature-heading">Currently accepting applications from architecture firms in <span style="color: var(--blue);">Kerala</span>.</div>
+                    </div>
+                </div>
+
+                <div class="who-info-bar">
+                    <div class="who-info-bar-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <div class="who-info-bar-content">
+                        <div class="who-info-bar-title">This is a private pilot.</div>
+                        <div class="who-info-bar-desc">Applications are reviewed carefully to ensure a small, high-impact group.</div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label>Firm Type</label>
-              <select id="f-type">
-                <option value="" disabled selected>Select firm type</option>
-                <option>Architecture Firm</option>
-                <option>Interior Design Studio</option>
-                <option>Material Consultant</option>
-                <option>Builder / Developer</option>
-                <option>Luxury Studio</option>
-                <option>Other</option>
-              </select>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 3: JOIN US ============ -->
+    <section class="section-join" id="join">
+        <div class="main-container">
+            <div class="join-layout">
+                <div class="join-left">
+                    <div class="section-label fade-up">03 — JOIN US</div>
+
+                    <h2 class="join-heading fade-up fade-up-delay-1">
+                        Help Shape the<br>
+                        Future of Material<br>
+                        Intelligence.<span style="color: var(--blue);">.</span>
+                    </h2>
+                    <p class="join-description fade-up fade-up-delay-2">
+                        We’re inviting a select group of architecture firms to pilot Hallo-hom on real projects, share honest feedback, and shape the future of AI-powered material workflows.
+                    </p>
+
+                    <div class="join-private-note fade-up fade-up-delay-3">
+                        <div class="note-icon">
+                            <i data-lucide="user-round-star"></i>
+                        </div>
+                        <div class="note-copy">
+                            <div class="note-title">This is a private pilot.</div>
+                            <div class="note-text">Applications are reviewed individually to ensure a focused, high-impact cohort.</div>
+                        </div>
+                    </div>
+
+                    <div class="join-actions fade-up">
+                        <a href="./prompt.html" class="join-apply-btn">
+                            Join Pilot Program
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                        <a href="#" class="join-secondary-btn" onclick="showToast(event)">
+                            Have Questions?
+                        </a>
+                    </div>
+
+                    <div class="join-pills fade-up fade-up-delay-1">
+                        <span class="join-pill"><i data-lucide="shield-check"></i> Free to join</span>
+                        <span class="join-pill"><i data-lucide="lock"></i> By invitation</span>
+                        <span class="join-pill"><i data-lucide="sparkles"></i> Limited spots</span>
+                    </div>
+                </div>
+
+                <div class="benefits-section">
+                    <div class="benefits-label">Pilot Program Benefits</div>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="clock-3"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Early Access, Before Anyone Else</div>
+                                <div class="benefit-desc">Be the first to experience new AI workflows for material discovery, specification, and sourcing.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="message-circle"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Shape the Product</div>
+                                <div class="benefit-desc">Your feedback and real project insights directly influence features, workflows, and future roadmap.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="headphones"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Dedicated & Lifetime Support</div>
+                                <div class="benefit-desc">Personal onboarding, ongoing support, and a direct line to our product team throughout your journey.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="badge-check"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Founding Participant Certificate</div>
+                                <div class="benefit-desc">Official recognition as a Founding Pilot Partner to showcase your leadership in innovation.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="crown"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Lifetime Founding Benefits</div>
+                                <div class="benefit-desc">Continued early access to new features, priority support, and exclusive updates even after launch.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="graduation-cap"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Learn & Stay Ahead</div>
+                                <div class="benefit-desc">Exclusive access to research insights, workflow guides, and pilot-only learning sessions.</div>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"><i data-lucide="gift"></i></div>
+                            <div class="benefit-content">
+                                <div class="benefit-title">Co-Marketing Opportunities</div>
+                                <div class="benefit-desc">Be featured as a pilot partner and collaborate on case studies and content, if desired.</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="benefits-footer">
+                        <i data-lucide="shield-check"></i>
+                        <div>
+                            <strong>Run on real projects. Share honest feedback. Build the future together.</strong>
+                            <div>Collaborative pilot over several weeks with ongoing engagement.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label>How did you hear about us?</label>
-              <select id="f-referral">
-                <option value="" disabled selected>Select referral source</option>
-                <option>Social Media</option>
-                <option>Colleague Referral</option>
-                <option>Industry Event</option>
-                <option>Google Search</option>
-                <option>Publication / Article</option>
-                <option>Other</option>
-              </select>
+
+            <div class="join-bottom-strip fade-up fade-up-delay-1">
+                <div class="join-bottom-left">
+                    <i class="join-bottom-icon" data-lucide="sparkles"></i>
+                    <div>
+                        <div class="join-bottom-title">Who can apply?</div>
+                        <div class="join-bottom-desc">Architecture firms in <span style="color: var(--blue); font-weight: 700;">Kerala</span> who love experimenting, adopt change early, and work on real projects.</div>
+                    </div>
+                </div>
+                <div class="join-divider-vertical"></div>
+                <div class="join-bottom-right">
+                    <i class="join-bottom-icon" data-lucide="calendar-days"></i>
+                    <div>
+                        <div class="join-bottom-title">Applications open now.</div>
+                        <div class="join-bottom-desc">Limited spots available.</div>
+                    </div>
+                </div>
             </div>
-            <div class="form-actions">
-              <button type="button" class="btn-secondary" onclick="goToStep(1)" style="border-radius:100px;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;">
-                <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
-                Back
-              </button>
-              <button type="button" class="btn-primary" onclick="submitForm()">
-                Submit Application
-                <i data-lucide="send" style="width:14px;height:14px;"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="footer-left">© 2025 Hallohom. All rights reserved.</div>
+        <div class="footer-right">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <!-- ============ TOAST NOTIFICATION ============ -->
+    <div id="toast" style="
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #0F172A;
+        color: white;
+        padding: 16px 28px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Inter', sans-serif;
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        pointer-events: none;
+    ">
+        <i data-lucide="check-circle" style="width:18px;height:18px;color:#22C55E;"></i>
+        Application form would open here
     </div>
-  </div>
-</div>
 
-<!-- ═══════ SUCCESS MODAL ═══════ -->
-<div class="modal-overlay" id="success-modal" onclick="handleOverlayClick(event, 'success-modal')">
-  <div class="modal success-modal" role="dialog" aria-modal="true" aria-label="Application Submitted">
-    <button class="modal-close" onclick="closeModal('success-modal')" aria-label="Close" style="position:absolute;top:16px;right:16px;">
-      <i data-lucide="x" style="width:18px;height:18px;"></i>
-    </button>
-    <img 
-      src="https://i.ibb.co/XxVdpfgj/a40abf93-f237-4f23-8adb-c4a1077814d1.png" 
-      alt="" 
-      class="success-image"
-    >
-    <div class="success-icon">
-      <i data-lucide="check" style="width:28px;height:28px;"></i>
-    </div>
-    <h2>Thank You!</h2>
-    <p>We'll review your application and get back within 3–5 working days.</p>
-    <div class="success-features">
-      <div class="success-feature">
-        <i data-lucide="mail" style="width:22px;height:22px;"></i>
-        <span>Email Confirmation</span>
-      </div>
-      <div class="success-feature">
-        <i data-lucide="key" style="width:22px;height:22px;"></i>
-        <span>Early Access</span>
-      </div>
-      <div class="success-feature">
-        <i data-lucide="compass" style="width:22px;height:22px;"></i>
-        <span>Shape Future Platform</span>
-      </div>
-    </div>
-    <button class="btn-primary" onclick="closeModal('success-modal')">
-      Close Window
-    </button>
-  </div>
-</div>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
 
-<script>
-  // ── Init Lucide ──
-  lucide.createIcons();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay');
+                    if (delay) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, parseInt(delay));
+                    } else {
+                        entry.target.classList.add('visible');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-  // ── Scroll Reveal ──
-  const revealElements = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-  });
-
-  revealElements.forEach(el => observer.observe(el));
-
-  // ── Modal Functions ──
-  function openModal(id) {
-    const modal = document.getElementById(id);
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    // Re-init icons for modal content
-    setTimeout(() => lucide.createIcons(), 50);
-  }
-
-  function closeModal(id) {
-    const modal = document.getElementById(id);
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    // Reset form if closing app modal
-    if (id === 'app-modal') {
-      setTimeout(() => {
-        goToStep(1);
-        document.getElementById('pilot-form').reset();
-      }, 350);
-    }
-  }
-
-  function handleOverlayClick(e, id) {
-    if (e.target === e.currentTarget) {
-      closeModal(id);
-    }
-  }
-
-  function showFieldError(id, message) {
-    const field = document.getElementById(id);
-    shakeField(id);
-    alert(message);
-    return false;
-  }
-
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-  }
-
-  function normalizePhone(phone) {
-    return phone.replace(/[^\d+]/g, '');
-  }
-
-  function isValidPhone(phone) {
-    const cleaned = phone.replace(/\s|-/g, '');
-    return /^\+?\d{10,15}$/.test(cleaned);
-  }
-
-  function isValidText(value, minLength) {
-    return value.length >= minLength;
-  }
-
-  function validateStepOne() {
-    const name = document.getElementById('f-name').value.trim();
-    const designation = document.getElementById('f-designation').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const location = document.getElementById('f-location').value.trim();
-
-    if (!isValidText(name, 2)) {
-      return showFieldError('f-name', 'Please enter a valid full name.');
-    }
-    if (designation && !isValidText(designation, 2)) {
-      return showFieldError('f-designation', 'Please enter a valid designation.');
-    }
-    if (!isValidEmail(email)) {
-      return showFieldError('f-email', 'Please enter a valid email address.');
-    }
-    if (phone && !isValidPhone(phone)) {
-      return showFieldError('f-phone', 'Please enter a valid phone number with 10 to 15 digits.');
-    }
-    if (location && !isValidText(location, 2)) {
-      return showFieldError('f-location', 'Please enter a valid location.');
-    }
-
-    return true;
-  }
-
-  function validateStepTwo() {
-    const studio = document.getElementById('f-studio').value.trim();
-    const type = document.getElementById('f-type').value || '';
-    const referral = document.getElementById('f-referral').value || '';
-
-    if (!isValidText(studio, 2)) {
-      return showFieldError('f-studio', 'Please enter a valid studio or firm name.');
-    }
-    if (!type) {
-      return showFieldError('f-type', 'Please select a firm type.');
-    }
-    if (!referral) {
-      return showFieldError('f-referral', 'Please select how you heard about us.');
-    }
-
-    return true;
-  }
-
-  // ── Multi-Step Form ──
-  function goToStep(step) {
-    const step1 = document.getElementById('form-step-1');
-    const step2 = document.getElementById('form-step-2');
-    const label1 = document.getElementById('step-label-1');
-    const label2 = document.getElementById('step-label-2');
-    const line = document.getElementById('step-line');
-
-    if (step === 1) {
-      step1.style.display = 'block';
-      step2.style.display = 'none';
-      label1.classList.add('active');
-      label2.classList.remove('active');
-      line.classList.remove('active');
-    } else if (step === 2) {
-      if (!validateStepOne()) {
-        return;
-      }
-
-      step1.style.display = 'none';
-      step2.style.display = 'block';
-      label1.classList.remove('active');
-      label2.classList.add('active');
-      line.classList.add('active');
-    }
-
-    lucide.createIcons();
-  }
-
-  function shakeField(id) {
-    const field = document.getElementById(id);
-    field.style.borderColor = '#EF4444';
-    field.style.animation = 'shake 0.4s ease';
-    field.focus();
-    setTimeout(() => {
-      field.style.borderColor = '';
-      field.style.animation = '';
-    }, 600);
-  }
-
-  // Add shake keyframes
-  const shakeStyle = document.createElement('style');
-  shakeStyle.textContent = `
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
-  `;
-  document.head.appendChild(shakeStyle);
-
-  function submitForm() {
-    if (!validateStepOne() || !validateStepTwo()) {
-      return;
-    }
-
-    const data = {
-      name: document.getElementById('f-name').value.trim(),
-      designation: document.getElementById('f-designation').value.trim(),
-      email: document.getElementById('f-email').value.trim(),
-      phone: normalizePhone(document.getElementById('f-phone').value.trim()),
-      location: document.getElementById('f-location').value.trim(),
-      studio: document.getElementById('f-studio').value.trim(),
-      type: document.getElementById('f-type').value || '',
-      referral: document.getElementById('f-referral').value || ''
-    };
-
-    // Paste the /exec URL from your Apps Script deployment here.
-    // It must be deployed as a Web app with access set to "Anyone".
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw9-EEIxAudmxk3jnak-dgHfvb4TtSNJg3hNC1Y0tOVcCS1_vTU-qBPRuyTcdF5OXOH8g/exec';
-    const submitBtn = document.querySelector('#form-step-2 .btn-primary');
-    if (submitBtn) submitBtn.disabled = true;
-
-    const formBody = new URLSearchParams();
-    Object.entries(data).forEach(([key, value]) => formBody.append(key, value));
-
-    const markSuccess = () => {
-      document.getElementById('pilot-form').reset();
-      closeModal('app-modal');
-      setTimeout(() => openModal('success-modal'), 400);
-    };
-
-    const markFailure = (message = 'Submission failed — please try again.') => {
-      console.error(message);
-      alert(message);
-    };
-
-    (async () => {
-      try {
-        const response = await fetch(WEB_APP_URL, {
-          method: 'POST',
-          body: formBody,
-          redirect: 'follow'
+        // Observe all animated elements
+        document.querySelectorAll('.fade-up, .pilot-card, .who-right-content, .benefits-section').forEach(el => {
+            observer.observe(el);
         });
 
-        const text = await response.text();
-        let json = null;
+        // Toast notification
+        function showToast(e) {
+            e.preventDefault();
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.style.pointerEvents = 'auto';
 
-        try {
-          json = text ? JSON.parse(text) : null;
-        } catch (err) {
-          // Ignore non-JSON responses; the request will still be treated as failed unless the status is OK.
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+                toast.style.pointerEvents = 'none';
+            }, 3000);
         }
 
-        // Accept both the new script response and the GitHub example response.
-        const isSuccess = response.ok && json &&
-          (json.status === 'success' || json.result === 'success');
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const navHeight = 72;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
-        if (isSuccess) {
-          markSuccess();
-        } else {
-          const errorMessage = json && json.message ? json.message : text || `Unexpected response (${response.status})`;
-          throw new Error(errorMessage);
-        }
-      } catch (err) {
-        console.error('Submission error', err);
-        markFailure(err.message || 'Submission failed — the form endpoint did not return a successful response.');
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
-    })();
-  }
-
-  // ── Escape Key ──
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-        closeModal(modal.id);
-      });
-    }
-  });
-
-  // ── Mobile Menu (simple toggle) ──
-  function toggleMobileMenu() {
-    const nav = document.querySelector('header nav');
-    if (nav.style.display === 'flex') {
-      nav.style.display = 'none';
-    } else {
-      nav.style.display = 'flex';
-      nav.style.position = 'absolute';
-      nav.style.top = '72px';
-      nav.style.left = '0';
-      nav.style.right = '0';
-      nav.style.background = '#fff';
-      nav.style.flexDirection = 'column';
-      nav.style.padding = '24px';
-      nav.style.borderBottom = '1px solid var(--border)';
-      nav.style.gap = '20px';
-    }
-  }
-
-  // ── Header scroll effect ──
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > 100) {
-      header.style.boxShadow = '0 1px 8px rgba(0,0,0,0.04)';
-    } else {
-      header.style.boxShadow = 'none';
-    }
-    lastScroll = currentScroll;
-  });
-</script>
+        // Nav background on scroll
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                nav.style.borderBottomColor = '#E2E8F0';
+                nav.style.background = 'rgba(255,255,255,0.95)';
+            } else {
+                nav.style.borderBottomColor = '#F1F5F9';
+                nav.style.background = 'rgba(255,255,255,0.85)';
+            }
+        });
+    </script>
 
 </body>
 </html>
