@@ -1,1469 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hallohom</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --blue: #2563EB;
-            --blue-light: #EFF6FF;
-            --blue-highlight: #DBEAFE;
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-tertiary: #94A3B8;
-            --border: #E2E8F0;
-            --border-light: #F1F5F9;
-            --bg-white: #FFFFFF;
-            --bg-subtle: #F8FAFC;
-            --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-            --card-shadow-hover: 0 10px 30px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-primary);
-            background: var(--bg-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ============ NAVIGATION ============ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 0 40px;
-            height: 72px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .nav-brand {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            color: #171717;
-            text-decoration: none;
-            line-height: 1;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 34px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s ease;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: #0B0B0F;
-            color: white;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 24px rgba(11, 11, 15, 0.14);
-        }
-
-        /* ============ MAIN CONTAINER ============ */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 48px;
-        }
-
-        /* ============ SECTION 1: WHY PILOT ============ */
-        .section-why-pilot {
-            padding-top: 160px;
-            padding-bottom: 120px;
-        }
-
-        .section-label {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-label::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--text-tertiary);
-        }
-
-        .hero-heading {
-            font-size: 64px;
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.035em;
-            color: var(--text-primary);
-            margin-bottom: 36px;
-            max-width: 900px;
-        }
-
-        .blue-highlight {
-            background: var(--blue-highlight);
-            color: var(--blue);
-            padding: 2px 10px;
-            border-radius: 4px;
-            display: inline;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-        }
-
-        .hero-description {
-            font-size: 18px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-            max-width: 640px;
-            margin-bottom: 80px;
-            font-weight: 400;
-        }
-
-        /* ============ THREE CARDS ============ */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .pilot-card {
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px 32px;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            background: var(--bg-white);
-            box-shadow: var(--card-shadow);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .pilot-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .pilot-card:hover {
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-4px);
-            border-color: #CBD5E1;
-        }
-
-        .card-icon-wrapper {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: var(--blue-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 28px;
-            color: var(--blue);
-        }
-
-        .card-icon-wrapper i {
-            width: 22px;
-            height: 22px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 14px;
-            color: var(--text-primary);
-        }
-
-        .card-description {
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        /* ============ SECTION 2: WHO IT'S FOR ============ */
-        .section-who {
-            padding-top: 40px;
-            padding-bottom: 140px;
-        }
-
-        .section-label-blue {
-            color: var(--blue);
-        }
-
-        .section-label-blue::before {
-            background: var(--blue);
-        }
-
-        .blue-highlight-lg {
-            background: var(--blue-highlight);
-            color: var(--blue);
-            padding: 4px 14px;
-            border-radius: 8px;
-            display: inline;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-        }
-
-        .who-heading {
-            font-size: 58px;
-            font-weight: 800;
-            line-height: 1.04;
-            letter-spacing: -0.035em;
-            color: var(--text-primary);
-            margin-bottom: 28px;
-            max-width: 900px;
-        }
-
-        .who-description {
-            font-size: 20px;
-            line-height: 1.65;
-            color: var(--text-secondary);
-            max-width: 860px;
-            margin-bottom: 44px;
-            font-weight: 400;
-        }
-
-        .who-main-card {
-            background: var(--bg-white);
-            border: 1px solid #E9E9EF;
-            border-radius: 22px;
-            padding: 36px 36px 30px;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
-        }
-
-        .who-card-header {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-            padding: 12px 12px 30px;
-        }
-
-        .who-card-header-icon {
-            width: 64px;
-            height: 64px;
-            min-width: 64px;
-            border-radius: 16px;
-            background: linear-gradient(180deg, #F5F2FF 0%, #EEEAFE 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5B3DF5;
-        }
-
-        .who-card-header-title {
-            font-size: 28px;
-            line-height: 1.15;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            max-width: 420px;
-        }
-
-        .who-divider-h {
-            height: 1px;
-            background: #ECEBF3;
-            margin: 6px 0 30px;
-        }
-
-        .who-features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .who-feature-block {
-            padding: 12px 30px 18px 12px;
-            position: relative;
-        }
-
-        .who-feature-border-r {
-            border-right: 1px solid #ECEBF3;
-        }
-
-        .who-feature-border-t {
-            border-top: 1px solid #ECEBF3;
-            margin-top: 10px;
-            padding-top: 28px;
-        }
-
-        .who-feature-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            color: #5B3DF5;
-        }
-
-        .who-feature-heading {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .who-feature-desc {
-            font-size: 16px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .who-info-bar {
-            margin-top: 34px;
-            padding: 24px 28px;
-            background: #F7F5FF;
-            border: 1px solid #EEEAFE;
-            border-radius: 18px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-
-        .who-info-bar-icon {
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            border-radius: 999px;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2px;
-            color: #5B3DF5;
-        }
-
-        .who-info-bar-content {
-            flex: 1;
-        }
-
-        .who-info-bar-title {
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .who-info-bar-desc {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            font-weight: 400;
-            max-width: 680px;
-        }
-
-        .who-traits {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 40px;
-        }
-
-        .who-traits li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .who-traits li .trait-icon {
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            margin-top: 1px;
-            color: var(--blue);
-        }
-
-        .who-kerala-notice {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 18px;
-            background: var(--blue-light);
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--blue);
-            border: 1px solid rgba(37, 99, 235, 0.1);
-        }
-
-        .who-kerala-notice i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .who-right-content {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .who-right-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .who-private-note {
-            padding: 36px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: var(--bg-subtle);
-        }
-
-        .who-private-note .note-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            margin-bottom: 16px;
-        }
-
-        .who-private-note .note-text {
-            font-size: 15px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-        }
-
-        .who-private-note .note-text strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        @media (max-width: 1024px) {
-            .who-heading {
-                font-size: 40px;
-            }
-
-            .who-main-card {
-                padding: 28px 28px 24px;
-            }
-
-            .who-feature-block {
-                padding: 10px 20px 16px 10px;
-            }
-
-            .who-feature-border-r {
-                padding-left: 0;
-            }
-
-            .who-info-bar {
-                padding: 22px 24px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .who-heading {
-                font-size: 32px;
-            }
-
-            .who-description {
-                font-size: 16px;
-                margin-bottom: 32px;
-            }
-
-            .who-main-card {
-                padding: 20px 18px 18px;
-                border-radius: 18px;
-            }
-
-            .who-features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .who-feature-block,
-            .who-feature-border-r {
-                border-right: none;
-                padding: 18px 8px;
-            }
-
-            .who-feature-border-t {
-                margin-top: 0;
-                padding-top: 18px;
-            }
-
-            .who-info-bar {
-                flex-direction: column;
-                padding: 20px 18px;
-                border-radius: 16px;
-            }
-        }
-
-        /* ============ SECTION 3: JOIN US ============ */
-        .section-join {
-            padding-top: 40px;
-            padding-bottom: 140px;
-        }
-
-        .join-layout {
-            display: grid;
-            grid-template-columns: 1.02fr 1fr;
-            gap: 44px;
-            align-items: start;
-        }
-
-        .join-heading {
-            font-size: 58px;
-            font-weight: 800;
-            line-height: 1.02;
-            letter-spacing: -0.035em;
-            color: var(--text-primary);
-            margin-bottom: 26px;
-            max-width: 620px;
-        }
-
-        .join-description {
-            font-size: 19px;
-            line-height: 1.62;
-            color: var(--text-secondary);
-            margin-bottom: 34px;
-            font-weight: 400;
-            max-width: 620px;
-        }
-
-        .join-private-note {
-            padding: 22px 26px;
-            background: #F7F5FF;
-            border: 1px solid #EEEAFE;
-            border-radius: 18px;
-            margin-bottom: 34px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-
-        .join-private-note .note-icon {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5B3DF5;
-        }
-
-        .join-private-note .note-copy {
-            flex: 1;
-        }
-
-        .join-private-note .note-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-            letter-spacing: -0.02em;
-        }
-
-        .join-private-note .note-text {
-            font-size: 16px;
-            line-height: 1.65;
-            color: var(--text-secondary);
-        }
-
-        .join-actions {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 44px;
-            flex-wrap: wrap;
-        }
-
-        .join-apply-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            padding: 18px 38px;
-            background: #0B0B0F;
-            color: white;
-            border-radius: 100px;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 12px 26px rgba(11, 11, 15, 0.12);
-        }
-
-        .join-apply-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 32px rgba(11, 11, 15, 0.18);
-        }
-
-        .join-apply-btn i {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.2s ease;
-        }
-
-        .join-apply-btn:hover i {
-            transform: translateX(3px);
-        }
-
-        .join-secondary-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 30px;
-            border: 1px solid #E2E2EA;
-            border-radius: 100px;
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-decoration: none;
-            background: var(--bg-white);
-            transition: all 0.25s ease;
-        }
-
-        .join-secondary-btn:hover {
-            border-color: #CBCBDD;
-            transform: translateY(-1px);
-        }
-
-        .join-pills {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            flex-wrap: wrap;
-            color: var(--text-secondary);
-            font-size: 17px;
-        }
-
-        .join-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .join-pill i {
-            width: 22px;
-            height: 22px;
-            color: #666;
-        }
-
-        /* Benefits List */
-        .benefits-section {
-            background: var(--bg-white);
-            border: 1px solid #E9E9EF;
-            border-radius: 24px;
-            padding: 28px 28px 0;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
-        }
-
-        .benefits-label {
-            font-size: 23px;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: 18px;
-        }
-
-        .benefits-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            padding: 18px 0;
-            border-bottom: 1px solid #ECEBF3;
-        }
-
-        .benefit-item:last-child {
-            border-bottom: none;
-        }
-
-        .benefit-icon {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #F6F2FF 0%, #EEEAFE 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5B3DF5;
-        }
-
-        .benefit-content {
-            flex: 1;
-        }
-
-        .benefit-title {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .benefit-desc {
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        .benefits-footer {
-            margin-top: 6px;
-            padding: 18px 0 20px;
-            border-top: 1px solid #ECEBF3;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 17px;
-            line-height: 1.55;
-        }
-
-        .benefits-footer i {
-            width: 20px;
-            height: 20px;
-            color: #5B3DF5;
-            flex: 0 0 auto;
-        }
-
-        .benefits-footer strong {
-            display: block;
-            color: var(--text-primary);
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .join-bottom-strip {
-            margin-top: 42px;
-            padding: 22px 24px;
-            background: #F7F5FF;
-            border: 1px solid #EEEAFE;
-            border-radius: 18px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 22px;
-            align-items: center;
-        }
-
-        .join-bottom-left,
-        .join-bottom-right {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .join-bottom-icon {
-            width: 28px;
-            height: 28px;
-            min-width: 28px;
-            color: #5B3DF5;
-        }
-
-        .join-bottom-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-
-        .join-bottom-desc {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .join-divider-vertical {
-            width: 1px;
-            height: 40px;
-            background: #DCDCE8;
-        }
-
-        .status-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .status-subtext {
-            font-size: 12px;
-            color: var(--text-tertiary);
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        .status-badge {
-            padding: 8px 18px;
-            background: var(--blue);
-            color: white;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-        }
-
-        /* ============ FOOTER ============ */
-        .footer {
-            border-top: 1px solid var(--border-light);
-            padding: 40px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-left {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
-
-        .footer-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .footer-right a {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-right a:hover {
-            color: var(--text-primary);
-        }
-
-        /* ============ ANIMATIONS ============ */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-up-delay-1 { transition-delay: 0.1s; }
-        .fade-up-delay-2 { transition-delay: 0.2s; }
-        .fade-up-delay-3 { transition-delay: 0.3s; }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1024px) {
-            .hero-heading {
-                font-size: 48px;
-            }
-
-            .who-heading,
-            .join-heading {
-                font-size: 38px;
-            }
-
-            .who-layout {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-
-            .join-layout {
-                grid-template-columns: 1fr;
-                gap: 60px;
-            }
-
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-
-            .pilot-card {
-                padding: 28px 22px;
-            }
-
-            .main-container {
-                padding: 0 32px;
-            }
-
-            .nav {
-                padding: 0 32px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav {
-                padding: 0 20px;
-                height: 60px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .main-container {
-                padding: 0 20px;
-            }
-
-            .section-why-pilot {
-                padding-top: 120px;
-                padding-bottom: 80px;
-            }
-
-            .hero-heading {
-                font-size: 36px;
-                line-height: 1.08;
-                letter-spacing: -0.03em;
-            }
-
-            .hero-description {
-                font-size: 16px;
-                margin-bottom: 48px;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .pilot-card {
-                padding: 28px 24px;
-            }
-
-            .section-who {
-                padding-bottom: 80px;
-            }
-
-            .who-heading {
-                font-size: 30px;
-            }
-
-            .who-layout {
-                gap: 40px;
-            }
-
-            .section-join {
-                padding-bottom: 80px;
-            }
-
-            .join-heading {
-                font-size: 40px;
-            }
-
-            .join-layout {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-
-            .join-description {
-                font-size: 17px;
-            }
-
-            .join-pills {
-                gap: 18px;
-            }
-
-            .benefits-section {
-                padding: 22px 20px 0;
-            }
-
-            .join-bottom-strip {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-
-            .join-divider-vertical {
-                width: 100%;
-                height: 1px;
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 16px;
-                padding: 32px 20px;
-                text-align: center;
-            }
-
-            .footer-right {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-heading {
-                font-size: 30px;
-            }
-
-            .who-heading {
-                font-size: 26px;
-            }
-
-            .join-heading {
-                font-size: 32px;
-            }
-
-            .who-kerala-notice {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .join-actions {
-                gap: 12px;
-            }
-
-            .join-apply-btn,
-            .join-secondary-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hallohom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#666666;
+      --soft:#f6f6f4;
+      --line:#e9e9e6;
+      --card:#fbfbfa;
+      --shadow:0 10px 30px rgba(0,0,0,.05);
+      --radius:18px;
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{min-height:100vh}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .nav{
+      position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);
+      backdrop-filter:saturate(180%) blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:500;letter-spacing:-.03em}
+    .brand svg{width:24px;height:24px;display:block}
+    .nav-links{display:flex;align-items:center;gap:34px;font-size:15px;color:#222}
+    .nav-links span{width:1px;height:18px;background:var(--line);display:inline-block;opacity:.9}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      height:34px;padding:0 16px;border-radius:7px;background:#0f1113;color:#fff;
+      font-size:14px;font-weight:500;box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 1px 2px rgba(0,0,0,.2);
+    }
+
+    .hero{padding:44px 0 34px}
+    .hero-card{
+      border-top:1px solid var(--line);
+      padding-top:44px;
+      min-height:430px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 408px;
+      gap:48px;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;align-items:center;height:21px;padding:0 12px;border-radius:999px;
+      background:#f3f3f1;color:#555;font-size:12px;font-weight:500;letter-spacing:-.01em;
+      margin-bottom:24px;
+    }
+    h1{
+      margin:0;
+      max-width:640px;
+      font-size:56px;line-height:1.02;letter-spacing:-.055em;font-weight:700;
+    }
+    .sub{
+      margin:22px 0 0;
+      max-width:560px;
+      font-size:18px;line-height:1.8;color:var(--muted);font-weight:400;
+    }
+    .actions{display:flex;align-items:center;gap:44px;margin-top:30px}
+    .primary{
+      height:39px;padding:0 22px;border-radius:7px;background:#0e1012;color:#fff;
+      display:inline-flex;align-items:center;gap:14px;font-size:14px;font-weight:600;
+      box-shadow:0 4px 14px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .secondary{
+      display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#111;
+    }
+    .secondary svg,.primary svg{width:16px;height:16px;display:block}
+    .trust{
+      display:flex;align-items:flex-start;gap:10px;margin-top:28px;color:#7a7a76;font-size:12px;line-height:1.35
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:#2ea44f;margin-top:6px;flex:0 0 auto}
+    .avatars{display:flex;align-items:center}
+    .avatars img{
+      width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-left:-7px;
+      box-shadow:0 0 0 1px rgba(0,0,0,.04)
+    }
+    .avatars img:first-child{margin-left:0}
+
+    .hero-visual{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:406px;
+    }
+    .magnetLines-container{
+      --rows: 9;
+      --columns: 9;
+      display:grid;
+      grid-template-columns:repeat(var(--columns), 1fr);
+      grid-template-rows:repeat(var(--rows), 1fr);
+      justify-items:center;
+      align-items:center;
+      width:100%;
+      max-width:408px;
+      aspect-ratio:1 / 1;
+      position:relative;
+    }
+    .magnetLines-container span{
+      display:block;
+      transform-origin:center;
+      will-change:transform;
+      transform:rotate(var(--rotate, -10deg));
+      border-radius:999px;
+      box-shadow:0 0 0 1px rgba(0,0,0,.015);
+    }
+
+    .section{padding:34px 0 0}
+    .divider{height:1px;background:var(--line);margin:0 0 34px}
+    .section h2{
+      margin:0 0 10px;
+      font-size:28px;line-height:1.15;letter-spacing:-.04em;
+    }
+    .section .desc{margin:0;color:#5f5f5a;font-size:14px;line-height:1.6}
+
+    .steps{
+      margin-top:34px;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:32px;position:relative;
+    }
+    .steps::before{
+      content:"";position:absolute;left:0;right:0;top:60px;height:1px;background:var(--line);
+    }
+    .step{
+      position:relative;background:#fff;border:1px solid #e5e5e1;border-radius:10px;
+      min-height:306px;padding:14px 14px 14px 14px;box-shadow:0 0 0 1px rgba(0,0,0,.01);
+    }
+    .num{font-size:12px;font-weight:500;color:#111;margin-bottom:28px}
+    .icon{
+      width:28px;height:28px;margin:0 0 22px;color:#111
+    }
+    .icon svg{width:28px;height:28px;display:block}
+    .step h3{margin:0 0 10px;font-size:15px;line-height:1.3;letter-spacing:-.03em}
+    .step p{margin:0;color:#595954;font-size:13px;line-height:1.7}
+    .tag{
+      position:absolute;left:14px;bottom:14px;height:25px;padding:0 10px;border-radius:6px;
+      border:1px solid #dbdbd6;background:#f7f7f5;color:#333;font-size:11px;display:inline-flex;align-items:center;gap:6px;
+    }
+    .tag svg{width:12px;height:12px}
+
+    .band{
+      margin-top:28px;background:#f8f8f6;border:1px solid #efefec;border-radius:12px;
+      padding:24px 28px;display:flex;align-items:flex-start;gap:18px
+    }
+    .band .people{width:34px;height:34px;flex:0 0 auto}
+    .band h3{margin:0 0 6px;font-size:19px;letter-spacing:-.03em}
+    .band p{margin:0;color:#5f5f5a;font-size:14px;line-height:1.65;max-width:640px}
+
+    .pilot{
+      margin-top:28px;border:1px solid #ececea;border-radius:12px;padding:22px 20px 18px;background:#fff;
+      display:grid;grid-template-columns:1.15fr .95fr auto;gap:20px;align-items:center;
+    }
+    .badge{
+      display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:999px;background:#dbeee7;color:#2d5f53;font-size:11px;font-weight:600;margin-bottom:10px
+    }
+    .pilot h3{margin:0 0 8px;font-size:27px;letter-spacing:-.04em}
+    .pilot p{margin:0;color:#5f5f5a;font-size:13px;line-height:1.65;max-width:370px}
+    .benefits{display:grid;gap:8px;font-size:13px;color:#474743}
+    .benefit{display:flex;align-items:center;gap:8px}
+    .benefit svg{width:14px;height:14px;flex:0 0 auto}
+    .pilot .btn2{
+      justify-self:end;display:inline-flex;align-items:center;gap:14px;height:34px;padding:0 18px;border-radius:7px;
+      background:#0e1012;color:#fff;font-size:14px;font-weight:500;min-width:160px;justify-content:center
+    }
+    .pilot .split{height:100%;width:1px;background:var(--line)}
+
+    .feature-grid{
+      margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px
+    }
+    .feature{
+      min-height:142px;border:1px solid #ececea;border-radius:12px;padding:18px 16px;background:#fff
+    }
+    .feature svg{width:22px;height:22px;margin-bottom:18px}
+    .feature h4{margin:0 0 8px;font-size:16px;letter-spacing:-.03em}
+    .feature p{margin:0;color:#62625d;font-size:13px;line-height:1.65}
+
+    .footer{
+      margin-top:28px;padding:20px 0 32px;border-top:1px solid var(--line)
+    }
+    .footer-inner{
+      display:grid;grid-template-columns:1.45fr .9fr .7fr .7fr;gap:24px;align-items:start
+    }
+    .footer-brand{display:flex;gap:10px;align-items:center;font-size:18px;font-weight:500}
+    .footer-copy{margin-top:12px;color:#5e5e59;font-size:13px;line-height:1.6;max-width:300px}
+    .footer-title{font-size:13px;font-weight:600;margin-bottom:14px}
+    .footer a{display:block;color:#666662;font-size:13px;line-height:1.9}
+    .copyright{margin-top:18px;color:#7a7a76;font-size:12px}
+
+    .mobile-only{display:none}
+    @media (max-width: 1100px){
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .steps::before{display:none}
+      .pilot{grid-template-columns:1fr}
+      .pilot .split,.pilot .btn2{display:none}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-inner{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 720px){
+      .nav-inner{height:72px}
+      .nav-links,.desktop-btn{display:none}
+      .mobile-only{display:inline-flex}
+      .hero-grid{grid-template-columns:1fr}
+      h1{font-size:42px;max-width:100%}
+      .sub{font-size:16px;max-width:100%}
+      .actions{gap:16px;flex-wrap:wrap}
+      .section h2{font-size:24px}
+      .steps{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr}
+      .band,.pilot{padding:18px}
+    }
+  </style>
 </head>
 <body>
-
-    <!-- ============ NAVIGATION ============ -->
-    <nav class="nav">
-        <a href="#" class="nav-brand">hallohom</a>
-        <ul class="nav-links">
-            <li><a href="#why-pilot">Why Pilot</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#join">Join Us</a></li>
-        </ul>
-        <a href="./prompt.html" class="nav-cta">
-            Join Pilot Program
-            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
-        </a>
-    </nav>
-
-    <!-- ============ SECTION 1: WHY PILOT ============ -->
-    <section class="section-why-pilot" id="why-pilot">
-        <div class="main-container">
-            <div class="section-label fade-up">01 — Why Pilot</div>
-
-            <h1 class="hero-heading fade-up fade-up-delay-1">
-                Built for those who<br>shape <span class="blue-highlight">the built</span> world.
-            </h1>
-
-            <p class="hero-description fade-up fade-up-delay-2">
-                We're inviting a select group of architects and designers to explore how AI can reshape the way they discover materials, write specifications, and source products — before anyone else.
-            </p>
-
-            <div class="cards-grid">
-                <div class="pilot-card" data-delay="0">
-                    <div class="card-icon-wrapper">
-                        <i data-lucide="zap"></i>
-                    </div>
-                    <h3 class="card-title">Early Access</h3>
-                    <p class="card-description">Be the first to experience new AI workflows designed specifically for architecture and material specification.</p>
-                </div>
-                <div class="pilot-card" data-delay="100">
-                    <div class="card-icon-wrapper">
-                        <i data-lucide="compass"></i>
-                    </div>
-                    <h3 class="card-title">Shape the Product</h3>
-                    <p class="card-description">Your feedback directly influences product decisions — from features to UX to the problems we solve first.</p>
-                </div>
-                <div class="pilot-card" data-delay="200">
-                    <div class="card-icon-wrapper">
-                        <i data-lucide="crown"></i>
-                    </div>
-                    <h3 class="card-title">Founding Benefits</h3>
-                    <p class="card-description">Pilot participants receive priority support, lifetime early-access pricing, and a founding member status.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" aria-label="How It Works" style="height: 1px; overflow: hidden;"></section>
-
-    <!-- ============ SECTION 2: WHO IT'S FOR ============ -->
-    <section class="section-who" id="who">
-        <div class="main-container">
-            <div class="section-label section-label-blue fade-up">02 — WHO IT'S FOR</div>
-
-            <h2 class="who-heading fade-up">
-                Designed for architects who want to <span class="blue-highlight-lg">shape what's next.</span>
-            </h2>
-
-            <p class="who-description fade-up fade-up-delay-1">
-                A private pilot for architecture firms that love experimenting, adopting change early, and building the future of practice.
-            </p>
-
-            <div class="who-main-card fade-up fade-up-delay-2">
-                <div class="who-card-header">
-                    <div class="who-card-header-icon">
-                        <i data-lucide="users-2"></i>
-                    </div>
-                    <div class="who-card-header-title">
-                        This pilot is for architecture firms that:
-                    </div>
-                </div>
-
-                <div class="who-divider-h"></div>
-
-                <div class="who-features-grid">
-                    <div class="who-feature-block who-feature-border-r">
-                        <div class="who-feature-icon">
-                            <i data-lucide="flask-conical"></i>
-                        </div>
-                        <div class="who-feature-heading">Love experimenting</div>
-                        <div class="who-feature-desc">You enjoy testing new ideas and workflows before they become mainstream.</div>
-                    </div>
-
-                    <div class="who-feature-block who-feature-border-r">
-                        <div class="who-feature-icon">
-                            <i data-lucide="sparkles"></i>
-                        </div>
-                        <div class="who-feature-heading">Believe in AI’s potential</div>
-                        <div class="who-feature-desc">You see AI as a powerful enabler for better design decisions and processes.</div>
-                    </div>
-
-                    <div class="who-feature-block">
-                        <div class="who-feature-icon">
-                            <i data-lucide="square-pen"></i>
-                        </div>
-                        <div class="who-feature-heading">Want to influence the product</div>
-                        <div class="who-feature-desc">You want your feedback to directly shape how this tool evolves.</div>
-                    </div>
-
-                    <div class="who-feature-block who-feature-border-t who-feature-border-r">
-                        <div class="who-feature-icon">
-                            <i data-lucide="rocket"></i>
-                        </div>
-                        <div class="who-feature-heading">Adopt change early</div>
-                        <div class="who-feature-desc">You are comfortable working with products that are still in development.</div>
-                    </div>
-
-                    <div class="who-feature-block who-feature-border-t who-feature-border-r">
-                        <div class="who-feature-icon">
-                            <i data-lucide="message-square-more"></i>
-                        </div>
-                        <div class="who-feature-heading">Work on real projects</div>
-                        <div class="who-feature-desc">You can apply the pilot on live projects and share honest, actionable feedback.</div>
-                    </div>
-
-                    <div class="who-feature-block who-feature-border-t">
-                        <div class="who-feature-icon">
-                            <i data-lucide="globe"></i>
-                        </div>
-                        <div class="who-feature-heading">Currently accepting applications from architecture firms in <span style="color: var(--blue);">Kerala</span>.</div>
-                    </div>
-                </div>
-
-                <div class="who-info-bar">
-                    <div class="who-info-bar-icon">
-                        <i data-lucide="sparkles"></i>
-                    </div>
-                    <div class="who-info-bar-content">
-                        <div class="who-info-bar-title">This is a private pilot.</div>
-                        <div class="who-info-bar-desc">Applications are reviewed carefully to ensure a small, high-impact group.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ SECTION 3: JOIN US ============ -->
-    <section class="section-join" id="join">
-        <div class="main-container">
-            <div class="join-layout">
-                <div class="join-left">
-                    <div class="section-label fade-up">03 — JOIN US</div>
-
-                    <h2 class="join-heading fade-up fade-up-delay-1">
-                        Help Shape the<br>
-                        Future of Material<br>
-                        Intelligence.<span style="color: var(--blue);">.</span>
-                    </h2>
-                    <p class="join-description fade-up fade-up-delay-2">
-                        We’re inviting a select group of architecture firms to pilot Hallo-hom on real projects, share honest feedback, and shape the future of AI-powered material workflows.
-                    </p>
-
-                    <div class="join-private-note fade-up fade-up-delay-3">
-                        <div class="note-icon">
-                            <i data-lucide="user-round-star"></i>
-                        </div>
-                        <div class="note-copy">
-                            <div class="note-title">This is a private pilot.</div>
-                            <div class="note-text">Applications are reviewed individually to ensure a focused, high-impact cohort.</div>
-                        </div>
-                    </div>
-
-                    <div class="join-actions fade-up">
-                        <a href="./prompt.html" class="join-apply-btn">
-                            Join Pilot Program
-                            <i data-lucide="arrow-right"></i>
-                        </a>
-                        <a href="#" class="join-secondary-btn" onclick="showToast(event)">
-                            Have Questions?
-                        </a>
-                    </div>
-
-                    <div class="join-pills fade-up fade-up-delay-1">
-                        <span class="join-pill"><i data-lucide="shield-check"></i> Free to join</span>
-                        <span class="join-pill"><i data-lucide="lock"></i> By invitation</span>
-                        <span class="join-pill"><i data-lucide="sparkles"></i> Limited spots</span>
-                    </div>
-                </div>
-
-                <div class="benefits-section">
-                    <div class="benefits-label">Pilot Program Benefits</div>
-                    <ul class="benefits-list">
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="clock-3"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Early Access, Before Anyone Else</div>
-                                <div class="benefit-desc">Be the first to experience new AI workflows for material discovery, specification, and sourcing.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="message-circle"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Shape the Product</div>
-                                <div class="benefit-desc">Your feedback and real project insights directly influence features, workflows, and future roadmap.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="headphones"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Dedicated & Lifetime Support</div>
-                                <div class="benefit-desc">Personal onboarding, ongoing support, and a direct line to our product team throughout your journey.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="badge-check"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Founding Participant Certificate</div>
-                                <div class="benefit-desc">Official recognition as a Founding Pilot Partner to showcase your leadership in innovation.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="crown"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Lifetime Founding Benefits</div>
-                                <div class="benefit-desc">Continued early access to new features, priority support, and exclusive updates even after launch.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="graduation-cap"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Learn & Stay Ahead</div>
-                                <div class="benefit-desc">Exclusive access to research insights, workflow guides, and pilot-only learning sessions.</div>
-                            </div>
-                        </li>
-                        <li class="benefit-item">
-                            <div class="benefit-icon"><i data-lucide="gift"></i></div>
-                            <div class="benefit-content">
-                                <div class="benefit-title">Co-Marketing Opportunities</div>
-                                <div class="benefit-desc">Be featured as a pilot partner and collaborate on case studies and content, if desired.</div>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="benefits-footer">
-                        <i data-lucide="shield-check"></i>
-                        <div>
-                            <strong>Run on real projects. Share honest feedback. Build the future together.</strong>
-                            <div>Collaborative pilot over several weeks with ongoing engagement.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="join-bottom-strip fade-up fade-up-delay-1">
-                <div class="join-bottom-left">
-                    <i class="join-bottom-icon" data-lucide="sparkles"></i>
-                    <div>
-                        <div class="join-bottom-title">Who can apply?</div>
-                        <div class="join-bottom-desc">Architecture firms in <span style="color: var(--blue); font-weight: 700;">Kerala</span> who love experimenting, adopt change early, and work on real projects.</div>
-                    </div>
-                </div>
-                <div class="join-divider-vertical"></div>
-                <div class="join-bottom-right">
-                    <i class="join-bottom-icon" data-lucide="calendar-days"></i>
-                    <div>
-                        <div class="join-bottom-title">Applications open now.</div>
-                        <div class="join-bottom-desc">Limited spots available.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
-    <footer class="footer">
-        <div class="footer-left">© 2025 Hallohom. All rights reserved.</div>
-        <div class="footer-right">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
-        </div>
-    </footer>
-
-    <!-- ============ TOAST NOTIFICATION ============ -->
-    <div id="toast" style="
-        position: fixed;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%) translateY(100px);
-        background: #0F172A;
-        color: white;
-        padding: 16px 28px;
-        border-radius: 14px;
-        font-size: 14px;
-        font-weight: 500;
-        font-family: 'Inter', sans-serif;
-        z-index: 1000;
-        opacity: 0;
-        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        pointer-events: none;
-    ">
-        <i data-lucide="check-circle" style="width:18px;height:18px;color:#22C55E;"></i>
-        Application form would open here
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.8 18.2 10.4 5.8c.5-1 1.8-1 2.3 0l6.6 12.4c.4.7-.1 1.5-.9 1.5h-1.9c-.4 0-.7-.2-.9-.6l-1-1.8H8.5l-1 1.8c-.2.4-.5.6-.9.6H4.7c-.8 0-1.3-.8-.9-1.5Zm7.8-8.7L9 14.1h5.9L11.6 9.5Z" fill="#111"/>
+        </svg>
+        <span>hallohom</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#how">How it Works</a><span></span>
+        <a href="#services">Services</a><span></span>
+        <a href="#pilot">AI Pilot</a><span></span>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn desktop-btn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_" target="_blank" rel="noopener noreferrer">Book a Demo</a>
+      <a class="btn mobile-only" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_" target="_blank" rel="noopener noreferrer">Book a Demo</a>
     </div>
+  </header>
 
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div>
+            <div class="pill">Material Sourcing, Simplified</div>
+            <h1>AI Material Intelligence<br>for Architects</h1>
+            <p class="sub">Share what you need. We source the best options, get quotes from trusted suppliers, and handle the rest — so you can focus on design.</p>
+            <div class="actions">
+              <a class="primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_" target="_blank" rel="noopener noreferrer">Book a Demo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a class="secondary" href="#how">Learn how it works
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </a>
+            </div>
+            <div class="trust">
+              <div class="dot"></div>
+              <div class="avatars" aria-hidden="true">
+                <img alt="" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80">
+                <img alt="" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80">
+                <img alt="" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&h=80&q=80">
+              </div>
+              <div>
+                Trusted by architects across India<br>
+                50+ Projects • 1000+ Materials Sourced
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Magnet lines animation">
+            <div class="magnetLines-container" id="magnetLines" style="--rows:9; --columns:9;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -60px 0px',
-            threshold: 0.1
-        };
+    <section class="section" id="how">
+      <div class="divider"></div>
+      <h2>How your project works</h2>
+      <p class="desc">A simple, expert-led process to help you source the right materials, fast.</p>
+      <div class="steps">
+        <article class="step">
+          <div class="num">01</div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/>
+            </svg>
+          </div>
+          <h3>Share Your<br>Requirement</h3>
+          <p>Send us your render, reference image, product photo, or simply tell us what you need via WhatsApp.</p>
+          <div class="tag">WhatsApp
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M12 20v-3"/><path d="M15 12a3 3 0 1 1-6 0"/></svg>
+          </div>
+        </article>
+        <article class="step">
+          <div class="num">02</div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+            </svg>
+          </div>
+          <h3>We Source Materials<br>&amp; Collect Quotes</h3>
+          <p>Our team reaches out to trusted suppliers to find the best matching materials and collects quotes for you.</p>
+          <div class="tag">Expert Sourcing</div>
+        </article>
+        <article class="step">
+          <div class="num">03</div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M8 9h8"/><path d="M8 13h8"/>
+            </svg>
+          </div>
+          <h3>Compare<br>Options</h3>
+          <p>Compare prices, brands, availability, lead times, and other details to choose the best fit for your project.</p>
+          <div class="tag">Multiple Options</div>
+        </article>
+        <article class="step">
+          <div class="num">04</div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5L15.5 10"/>
+            </svg>
+          </div>
+          <h3>Confirm<br>Your Choice</h3>
+          <p>Select your preferred option. We coordinate the order and keep everything on track.</p>
+          <div class="tag">Hassle-free</div>
+        </article>
+        <article class="step">
+          <div class="num">05</div>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h11v10H3z"/><path d="M14 10h3l4 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+            </svg>
+          </div>
+          <h3>Delivery &amp;<br>Support</h3>
+          <p>Get delivery updates and ongoing support until materials reach your site.</p>
+          <div class="tag">End-to-end Support</div>
+        </article>
+      </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delay = entry.target.getAttribute('data-delay');
-                    if (delay) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, parseInt(delay));
-                    } else {
-                        entry.target.classList.add('visible');
-                    }
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+      <div class="band">
+        <svg class="people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <div>
+          <h3>Human Expertise, AI Assistance</h3>
+          <p>Most of our sourcing is handled by our team of material experts, with AI tools helping us work faster and smarter behind the scenes.</p>
+        </div>
+      </div>
+    </section>
 
-        // Observe all animated elements
-        document.querySelectorAll('.fade-up, .pilot-card, .who-right-content, .benefits-section').forEach(el => {
-            observer.observe(el);
+    <section class="section" id="pilot">
+      <div class="pilot">
+        <div>
+          <div class="badge">Coming Soon</div>
+          <h3>AI Pilot Program</h3>
+          <p>We&apos;re building the next generation of AI-powered tools for material discovery, quote comparison, tracking, and more.<br><br>Join a select group of architects to test and shape the future.</p>
+        </div>
+        <div class="benefits">
+          <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Early access to new AI features</div>
+          <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>Shape the product with your feedback</div>
+          <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h4"/><path d="M12 8v8"/></svg>Priority support &amp; exclusive updates</div>
+          <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>Limited spots available</div>
+        </div>
+        <div class="split"></div>
+        <a class="btn2" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_?gv=true" target="_blank" rel="noopener noreferrer">Book an appointment
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="feature-grid" id="services">
+        <article class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M6 17V7h12v10"/><path d="M10 17v-4h4v4"/></svg>
+          <h4>Built for Architects</h4>
+          <p>We understand your workflow and priorities.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h4>Verified Suppliers</h4>
+          <p>Access to trusted and quality suppliers across India.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <h4>Faster Procurement</h4>
+          <p>Save time with expert sourcing and better comparisons.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M7 7v10"/><path d="M17 7v10"/><path d="M6 17h12"/></svg>
+          <h4>Personal Support</h4>
+          <p>Real people, real support throughout your project journey.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path d="M3.8 18.2 10.4 5.8c.5-1 1.8-1 2.3 0l6.6 12.4c.4.7-.1 1.5-.9 1.5h-1.9c-.4 0-.7-.2-.9-.6l-1-1.8H8.5l-1 1.8c-.2.4-.5.6-.9.6H4.7c-.8 0-1.3-.8-.9-1.5Z" fill="#111"/>
+            </svg>
+            <span>hallohom</span>
+          </div>
+          <div class="footer-copy">Material sourcing and procurement partner for architects and design professionals.</div>
+          <div class="copyright">© 2025 Hallohom. All rights reserved.</div>
+        </div>
+        <div>
+          <div class="footer-title">Company</div>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+        </div>
+        <div>
+          <div class="footer-title">Resources</div>
+          <a href="#faq">FAQ</a>
+          <a href="#how">How it Works</a>
+        </div>
+        <div>
+          <div class="footer-title">Connect</div>
+          <a href="#">WhatsApp</a>
+          <a href="#">Email</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <section id="demo" style="height:1px"></section>
+  <script>
+    (function () {
+      const container = document.getElementById('magnetLines');
+      if (!container) return;
+
+      const rows = 9;
+      const columns = 9;
+      const total = rows * columns;
+      const lineColor = '#c8c8c4';
+      const lineWidth = '0.22vmin';
+      const lineHeight = '4.4vmin';
+      const baseAngle = -10;
+
+      container.innerHTML = '';
+      for (let i = 0; i < total; i += 1) {
+        const span = document.createElement('span');
+        span.style.setProperty('--rotate', `${baseAngle}deg`);
+        span.style.backgroundColor = lineColor;
+        span.style.width = lineWidth;
+        span.style.height = lineHeight;
+        container.appendChild(span);
+      }
+
+      const items = container.querySelectorAll('span');
+      const onPointerMove = (pointer) => {
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          const centerX = rect.x + rect.width / 2;
+          const centerY = rect.y + rect.height / 2;
+          const b = pointer.x - centerX;
+          const a = pointer.y - centerY;
+          const c = Math.sqrt(a * a + b * b) || 1;
+          const r = ((Math.acos(b / c) * 180) / Math.PI) * (pointer.y > centerY ? 1 : -1);
+          item.style.setProperty('--rotate', `${r}deg`);
         });
+      };
 
-        // Toast notification
-        function showToast(e) {
-            e.preventDefault();
-            const toast = document.getElementById('toast');
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateX(-50%) translateY(0)';
-            toast.style.pointerEvents = 'auto';
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%) translateY(100px)';
-                toast.style.pointerEvents = 'none';
-            }, 3000);
-        }
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const navHeight = 72;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Nav background on scroll
-        const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                nav.style.borderBottomColor = '#E2E8F0';
-                nav.style.background = 'rgba(255,255,255,0.95)';
-            } else {
-                nav.style.borderBottomColor = '#F1F5F9';
-                nav.style.background = 'rgba(255,255,255,0.85)';
-            }
-        });
-    </script>
-
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      if (items.length) {
+        const middleIndex = Math.floor(items.length / 2);
+        const rect = items[middleIndex].getBoundingClientRect();
+        onPointerMove({ x: rect.x, y: rect.y });
+      }
+    })();
+  </script>
 </body>
 </html>
