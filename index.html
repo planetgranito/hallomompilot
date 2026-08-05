@@ -176,6 +176,25 @@
     }
     .pilot .split{height:100%;width:1px;background:var(--line)}
 
+    .brand-wall-section{margin-top:28px}
+    .brand-wall-title{
+      margin:0 0 18px;font-size:14px;font-weight:600;color:#5f5f5a;
+      text-align:center;letter-spacing:-.02em
+    }
+    .brand-wall{
+      overflow:hidden;position:relative;padding:8px 0;
+      -webkit-mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+      mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    }
+    .brand-wall-track{
+      display:flex;align-items:center;gap:48px;width:max-content;will-change:transform
+    }
+    .brand-wall-track img{
+      height:56px;width:auto;max-width:150px;object-fit:contain;display:block;flex-shrink:0;
+      opacity:.85;filter:grayscale(20%);transition:opacity .2s ease, filter .2s ease
+    }
+    .brand-wall:hover .brand-wall-track img{opacity:1;filter:grayscale(0%)}
+
     .feature-grid{
       margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px
     }
@@ -386,6 +405,13 @@
         </a>
       </div>
 
+      <div class="brand-wall-section">
+        <h3 class="brand-wall-title">Trusted by</h3>
+        <div class="brand-wall" aria-label="Trusted brand partners">
+          <div class="brand-wall-track" id="brandWallTrack"></div>
+        </div>
+      </div>
+
       <div class="feature-grid" id="services">
         <article class="feature">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M6 17V7h12v10"/><path d="M10 17v-4h4v4"/></svg>
@@ -493,6 +519,95 @@
         const rect = items[middleIndex].getBoundingClientRect();
         onPointerMove({ x: rect.x, y: rect.y });
       }
+    })();
+
+    (function () {
+      const wall = document.querySelector('.brand-wall');
+      const track = document.getElementById('brandWallTrack');
+      if (!wall || !track) return;
+
+      const brands = [
+        { src: 'https://i.ibb.co/F4s32JKb/hilite.png', alt: 'Hilite' },
+        { src: 'https://i.ibb.co/ynqHyNcG/keralapolice.png', alt: 'Kerala Police' },
+        { src: 'https://i.ibb.co/chtP8wgQ/samsung.png', alt: 'Samsung' },
+        { src: 'https://i.ibb.co/3YC5XZmf/zaithoon.png', alt: 'Zaithoon' },
+        { src: 'https://i.ibb.co/rKkW1wqK/Ulccs.png', alt: 'ULCCS' },
+        { src: 'https://i.ibb.co/BVW4P3Tf/output.png', alt: 'Output' },
+        { src: 'https://i.ibb.co/fVY41g0B/calicutmedicalcollage.png', alt: 'Calicut Medical College' }
+      ];
+
+      let setWidth = 0;
+      let offset = 0;
+      let paused = false;
+      const speed = 0.75;
+
+      function buildTrack() {
+        track.innerHTML = '';
+        const minWidth = wall.clientWidth * 2;
+        let setIndex = 0;
+
+        do {
+          brands.forEach(({ src, alt }) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = setIndex === 0 ? alt : '';
+            if (setIndex > 0) img.setAttribute('aria-hidden', 'true');
+            track.appendChild(img);
+          });
+          setIndex += 1;
+        } while (track.scrollWidth < minWidth || setIndex < 3);
+
+        const imgs = track.querySelectorAll('img');
+        setWidth = imgs[brands.length] ? imgs[brands.length].offsetLeft : 0;
+        if (offset >= setWidth) offset = 0;
+        track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+      }
+
+      wall.addEventListener('mouseenter', () => { paused = true; });
+      wall.addEventListener('mouseleave', () => { paused = false; });
+
+      function tick() {
+        if (!paused && setWidth > 0) {
+          offset += speed;
+          if (offset >= setWidth) offset -= setWidth;
+          track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      function waitForImages(cb) {
+        const imgs = track.querySelectorAll('img');
+        if (!imgs.length) {
+          cb();
+          return;
+        }
+        let ready = 0;
+        imgs.forEach((img) => {
+          const done = () => {
+            ready += 1;
+            if (ready === imgs.length) cb();
+          };
+          if (img.complete) done();
+          else {
+            img.addEventListener('load', done);
+            img.addEventListener('error', done);
+          }
+        });
+      }
+
+      function init() {
+        buildTrack();
+        waitForImages(() => {
+          buildTrack();
+          requestAnimationFrame(tick);
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        buildTrack();
+      });
+
+      init();
     })();
   </script>
 </body>
