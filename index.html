@@ -238,7 +238,13 @@
       .steps{grid-template-columns:repeat(2,1fr)}
       .steps::before{display:none}
       .pilot{grid-template-columns:1fr}
-      .pilot .split,.pilot .btn2{display:none}
+      .pilot .split{display:none}
+      .pilot .btn2{
+        justify-self:start;
+        margin-top:4px;
+        width:100%;
+        max-width:100%;
+      }
       .feature-grid{grid-template-columns:repeat(2,1fr)}
       .footer-inner{grid-template-columns:1fr 1fr}
     }
@@ -406,7 +412,7 @@
           <div class="benefit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>Limited spots available</div>
         </div>
         <div class="split"></div>
-        <a class="btn2" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_?gv=true" target="_blank" rel="noopener noreferrer">Book an appointment
+        <a class="btn2" href="prompt.html">Book an appointment
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
