@@ -133,29 +133,77 @@
     }
     .section .desc{margin:0;color:#5f5f5a;font-size:14px;line-height:1.6}
 
-    .steps{
-      margin-top:34px;
-      display:grid;grid-template-columns:repeat(5,1fr);gap:32px;position:relative;
+    .flow-diagram{
+      position:relative;margin-top:34px;min-height:420px
     }
-    .steps::before{
-      content:"";position:absolute;left:0;right:0;top:60px;height:1px;background:var(--line);
+    .flow-lines{
+      position:absolute;inset:0;width:100%;height:100%;
+      pointer-events:none;overflow:visible;z-index:3
     }
-    .step{
-      position:relative;background:#fff;border:1px solid #e5e5e1;border-radius:10px;
-      min-height:306px;padding:14px 14px 14px 14px;box-shadow:0 0 0 1px rgba(0,0,0,.01);
+    .flow-lines .flow-path-base{
+      fill:none;stroke:#b8b8b4;stroke-width:1.25;stroke-linecap:round;
+      stroke-dasharray:4 8;opacity:1;
+      animation:flow-dash 2s linear infinite
     }
-    .num{font-size:12px;font-weight:500;color:#111;margin-bottom:28px}
-    .icon{
-      width:28px;height:28px;margin:0 0 22px;color:#111
+    .flow-path-base.speed-input{animation-duration:3.2s}
+    .flow-path-base.speed-merge{animation-duration:2.8s}
+    .flow-path-base.speed-hub{animation-duration:1.8s}
+    .flow-path-base.speed-output{animation-duration:0.85s}
+    @keyframes flow-dash{to{stroke-dashoffset:-24}}
+    .flow-dots{
+      position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible
     }
-    .icon svg{width:28px;height:28px;display:block}
-    .step h3{margin:0 0 10px;font-size:15px;line-height:1.3;letter-spacing:-.03em}
-    .step p{margin:0;color:#595954;font-size:13px;line-height:1.7}
-    .tag{
-      position:absolute;left:14px;bottom:14px;height:25px;padding:0 10px;border-radius:6px;
-      border:1px solid #dbdbd6;background:#f7f7f5;color:#333;font-size:11px;display:inline-flex;align-items:center;gap:6px;
+    .flow-dot-particle{
+      position:absolute;width:4px;height:4px;border-radius:50%;
+      background:#111;left:0;top:0;will-change:transform
     }
-    .tag svg{width:12px;height:12px}
+    .flow-layout{
+      position:relative;z-index:1;
+      display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr) minmax(0,210px);
+      gap:40px;align-items:center
+    }
+    .flow-inputs{display:flex;flex-direction:column;gap:14px;justify-content:center}
+    .flow-node--step01,
+    .flow-output .flow-node{
+      display:flex;flex-direction:column;min-height:100%
+    }
+    .flow-node--step01 p,
+    .flow-output .flow-node p{flex:1;margin-bottom:12px}
+    .flow-node--step01 .flow-tag,
+    .flow-output .flow-node .flow-tag{margin-top:auto}
+    .flow-hub{
+      background:var(--soft);border:1px solid var(--line);border-radius:12px;
+      padding:20px 22px 18px;position:relative;min-height:0;z-index:1
+    }
+    .flow-hub-brand{
+      position:absolute;top:14px;right:16px;
+      font-size:11px;line-height:1;z-index:2
+    }
+    .flow-hub-nodes{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:32px
+    }
+    .flow-hub-nodes .flow-node{
+      display:flex;flex-direction:column;min-height:100%
+    }
+    .flow-hub-nodes .flow-node p{flex:1;margin-bottom:12px}
+    .flow-hub-nodes .flow-node .flow-tag{margin-top:auto}
+    .flow-icon{
+      width:22px;height:22px;margin-bottom:10px;color:#111
+    }
+    .flow-icon svg{width:22px;height:22px;display:block}
+    .flow-output{display:flex;align-items:center;justify-content:center}
+    .flow-node{
+      position:relative;z-index:2;
+      background:#fff;border:1px solid #e5e5e1;border-radius:10px;
+      padding:12px;box-shadow:0 0 0 1px rgba(0,0,0,.01)
+    }
+    .flow-node .num{font-size:11px;font-weight:500;color:#111;margin-bottom:10px}
+    .flow-node h3{margin:0 0 6px;font-size:13px;line-height:1.3;letter-spacing:-.03em;font-weight:600}
+    .flow-node p{margin:0 0 10px;color:#595954;font-size:12px;line-height:1.55}
+    .flow-tag{
+      display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;
+      border:1px solid #dbdbd6;background:#f7f7f5;color:#333;font-size:10px;font-weight:500
+    }
 
     .band{
       margin-top:28px;background:#f8f8f6;border:1px solid #efefec;border-radius:12px;
@@ -235,8 +283,11 @@
 
     .mobile-only{display:none}
     @media (max-width: 1100px){
-      .steps{grid-template-columns:repeat(2,1fr)}
-      .steps::before{display:none}
+      .flow-layout{
+        grid-template-columns:1fr;
+        gap:36px
+      }
+      .flow-hub-nodes{grid-template-columns:1fr;gap:24px}
       .pilot{grid-template-columns:1fr}
       .pilot .split{display:none}
       .pilot .btn2{
@@ -257,7 +308,7 @@
       .sub{font-size:16px;max-width:100%}
       .actions{gap:16px;flex-wrap:wrap}
       .section h2{font-size:24px}
-      .steps{grid-template-columns:1fr}
+      .flow-hub-nodes{grid-template-columns:1fr}
       .feature-grid{grid-template-columns:1fr}
       .footer-inner{grid-template-columns:1fr}
       .band,.pilot{padding:18px}
@@ -276,6 +327,7 @@
         <a href="#how">How it Works</a><span></span>
         <a href="#services">Services</a><span></span>
         <a href="#pilot">AI Pilot</a><span></span>
+        <a href="sharath-v01.html">Sharath-V01</a><span></span>
         <a href="#faq">FAQ</a>
       </nav>
       <a class="btn desktop-btn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ29K-ZWBMjtLNUK8rDv24wzZwF7edOfPRnKcqXvpAOZrflcT4mnCGrOOF0Olxn-eNGXohtuxKR_" target="_blank" rel="noopener noreferrer">Book a Demo</a>
@@ -324,64 +376,69 @@
       <div class="divider"></div>
       <h2>How your project works</h2>
       <p class="desc">A simple, expert-led process to help you source the right materials, fast.</p>
-      <div class="steps">
-        <article class="step">
-          <div class="num">01</div>
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/>
-            </svg>
+      <div class="flow-diagram" id="flowDiagram" aria-label="How your project works">
+        <svg class="flow-lines" id="flowLines" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+        <div class="flow-dots" id="flowDots" aria-hidden="true"></div>
+        <div class="flow-layout">
+          <div class="flow-inputs">
+            <article class="flow-node flow-node--step01" data-flow-anchor="step-01">
+              <div class="num">01</div>
+              <div class="flow-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
+              </div>
+              <h3>Share Your Requirement</h3>
+              <p>Send us your render, reference image, product photo, or simply tell us what you need via WhatsApp.</p>
+              <span class="flow-tag">WhatsApp</span>
+            </article>
           </div>
-          <h3>Share Your<br>Requirement</h3>
-          <p>Send us your render, reference image, product photo, or simply tell us what you need via WhatsApp.</p>
-          <div class="tag">WhatsApp
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M12 20v-3"/><path d="M15 12a3 3 0 1 1-6 0"/></svg>
+
+          <div class="flow-hub" data-flow-anchor="hub">
+            <span class="flow-hub-brand logo-wordmark" aria-hidden="true">
+              <span class="logo-bold">HALLOHOM</span><span class="logo-thin">AI</span>
+            </span>
+            <div class="flow-hub-nodes">
+              <article class="flow-node" data-flow-anchor="step-02">
+                <div class="num">02</div>
+                <div class="flow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                </div>
+                <h3>We Source Materials &amp; Collect Quotes</h3>
+                <p>Our team reaches out to trusted suppliers to find the best matching materials and collects quotes for you.</p>
+                <span class="flow-tag">Expert Sourcing</span>
+              </article>
+              <article class="flow-node" data-flow-anchor="step-03">
+                <div class="num">03</div>
+                <div class="flow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M8 9h8"/><path d="M8 13h8"/></svg>
+                </div>
+                <h3>Compare Options</h3>
+                <p>Compare prices, brands, availability, lead times, and other details to choose the best fit for your project.</p>
+                <span class="flow-tag">Multiple Options</span>
+              </article>
+              <article class="flow-node" data-flow-anchor="step-04">
+                <div class="num">04</div>
+                <div class="flow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5L15.5 10"/></svg>
+                </div>
+                <h3>Confirm Your Choice</h3>
+                <p>Select your preferred option. We coordinate the order and keep everything on track.</p>
+                <span class="flow-tag">Hassle-free</span>
+              </article>
+            </div>
           </div>
-        </article>
-        <article class="step">
-          <div class="num">02</div>
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-            </svg>
+
+          <div class="flow-output">
+            <article class="flow-node" data-flow-anchor="step-05">
+              <div class="num">05</div>
+              <div class="flow-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v10H3z"/><path d="M14 10h3l4 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              </div>
+              <h3>Delivery &amp; Support</h3>
+              <p>Get delivery updates and ongoing support until materials reach your site.</p>
+              <span class="flow-tag">End-to-end Support</span>
+            </article>
           </div>
-          <h3>We Source Materials<br>&amp; Collect Quotes</h3>
-          <p>Our team reaches out to trusted suppliers to find the best matching materials and collects quotes for you.</p>
-          <div class="tag">Expert Sourcing</div>
-        </article>
-        <article class="step">
-          <div class="num">03</div>
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M8 9h8"/><path d="M8 13h8"/>
-            </svg>
-          </div>
-          <h3>Compare<br>Options</h3>
-          <p>Compare prices, brands, availability, lead times, and other details to choose the best fit for your project.</p>
-          <div class="tag">Multiple Options</div>
-        </article>
-        <article class="step">
-          <div class="num">04</div>
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5L15.5 10"/>
-            </svg>
-          </div>
-          <h3>Confirm<br>Your Choice</h3>
-          <p>Select your preferred option. We coordinate the order and keep everything on track.</p>
-          <div class="tag">Hassle-free</div>
-        </article>
-        <article class="step">
-          <div class="num">05</div>
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 7h11v10H3z"/><path d="M14 10h3l4 4v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
-            </svg>
-          </div>
-          <h3>Delivery &amp;<br>Support</h3>
-          <p>Get delivery updates and ongoing support until materials reach your site.</p>
-          <div class="tag">End-to-end Support</div>
-        </article>
+        </div>
       </div>
 
       <div class="band">
@@ -469,6 +526,7 @@
           <div class="footer-title">Resources</div>
           <a href="#faq">FAQ</a>
           <a href="#how">How it Works</a>
+          <a href="sharath-v01.html">Sharath-V01</a>
         </div>
         <div>
           <div class="footer-title">Connect</div>
@@ -621,6 +679,162 @@
       });
 
       init();
+    })();
+
+    (function () {
+      const diagram = document.getElementById('flowDiagram');
+      const svg = document.getElementById('flowLines');
+      const dotsLayer = document.getElementById('flowDots');
+      if (!diagram || !svg || !dotsLayer) return;
+
+      const NS = 'http://www.w3.org/2000/svg';
+      const SPEEDS = { input: 32, merge: 38, hub: 58, output: 105 };
+
+      let paths = [];
+      let dots = [];
+      let rafId = 0;
+      let lastTs = 0;
+
+      function edgePoint(el, edge) {
+        const dRect = diagram.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        const left = r.left - dRect.left;
+        const top = r.top - dRect.top;
+        const cx = left + r.width / 2;
+        const cy = top + r.height / 2;
+        switch (edge) {
+          case 'right': return { x: left + r.width, y: cy };
+          case 'left': return { x: left, y: cy };
+          case 'bottom': return { x: cx, y: top + r.height };
+          case 'top': return { x: cx, y: top };
+          default: return { x: cx, y: cy };
+        }
+      }
+
+      function bezierPath(from, to, axis) {
+        if (axis === 'h') {
+          const mx = (from.x + to.x) / 2;
+          return `M ${from.x.toFixed(1)} ${from.y.toFixed(1)} C ${mx.toFixed(1)} ${from.y.toFixed(1)}, ${mx.toFixed(1)} ${to.y.toFixed(1)}, ${to.x.toFixed(1)} ${to.y.toFixed(1)}`;
+        }
+        const my = (from.y + to.y) / 2;
+        return `M ${from.x.toFixed(1)} ${from.y.toFixed(1)} C ${from.x.toFixed(1)} ${my.toFixed(1)}, ${to.x.toFixed(1)} ${my.toFixed(1)}, ${to.x.toFixed(1)} ${to.y.toFixed(1)}`;
+      }
+
+      function anchor(name) {
+        return diagram.querySelector(`[data-flow-anchor="${name}"]`);
+      }
+
+      function stopAnim() {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+        lastTs = 0;
+      }
+
+      function placeDot(dot) {
+        const path = paths[dot.pathIndex];
+        if (!path) return;
+        const pt = path.el.getPointAtLength(dot.offset);
+        dot.el.style.transform = `translate(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px) translate(-50%, -50%)`;
+      }
+
+      function tick(ts) {
+        if (!dots.length) return;
+        if (!lastTs) lastTs = ts;
+        const dt = Math.min(0.05, (ts - lastTs) / 1000);
+        lastTs = ts;
+
+        dots.forEach((dot) => {
+          const path = paths[dot.pathIndex];
+          if (!path) return;
+          dot.offset = (dot.offset + path.speed * dt) % path.length;
+          placeDot(dot);
+        });
+
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function startAnim() {
+        stopAnim();
+        if (!dots.length) return;
+        dots.forEach(placeDot);
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function addFlowPath(d, speedKey) {
+        const path = document.createElementNS(NS, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('class', `flow-path-base speed-${speedKey}`);
+        svg.appendChild(path);
+
+        const length = path.getTotalLength();
+        if (length < 4) return;
+
+        const speed = SPEEDS[speedKey] || SPEEDS.hub;
+        const pathIndex = paths.length;
+        paths.push({ el: path, length, speed });
+
+        const el = document.createElement('div');
+        el.className = 'flow-dot-particle';
+        dotsLayer.appendChild(el);
+        dots.push({ el, pathIndex, offset: 0 });
+      }
+
+      function drawPaths() {
+        stopAnim();
+        paths = [];
+        dots = [];
+        svg.innerHTML = '';
+        dotsLayer.innerHTML = '';
+
+        const w = diagram.clientWidth;
+        const h = diagram.clientHeight;
+        if (w < 10 || h < 10) return;
+
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        svg.setAttribute('width', String(w));
+        svg.setAttribute('height', String(h));
+
+        const vertical = window.innerWidth <= 1100;
+
+        const step01 = anchor('step-01');
+        const step02 = anchor('step-02');
+        const step03 = anchor('step-03');
+        const step04 = anchor('step-04');
+        const step05 = anchor('step-05');
+
+        if (!step01 || !step02 || !step03 || !step04 || !step05) return;
+
+        if (vertical) {
+          addFlowPath(bezierPath(edgePoint(step01, 'bottom'), edgePoint(step02, 'top'), 'v'), 'input');
+          addFlowPath(bezierPath(edgePoint(step02, 'bottom'), edgePoint(step03, 'top'), 'v'), 'hub');
+          addFlowPath(bezierPath(edgePoint(step03, 'bottom'), edgePoint(step04, 'top'), 'v'), 'hub');
+          addFlowPath(bezierPath(edgePoint(step04, 'bottom'), edgePoint(step05, 'top'), 'v'), 'output');
+        } else {
+          addFlowPath(bezierPath(edgePoint(step01, 'right'), edgePoint(step02, 'left'), 'h'), 'input');
+          addFlowPath(bezierPath(edgePoint(step02, 'right'), edgePoint(step03, 'left'), 'h'), 'hub');
+          addFlowPath(bezierPath(edgePoint(step03, 'right'), edgePoint(step04, 'left'), 'h'), 'hub');
+          addFlowPath(bezierPath(edgePoint(step04, 'right'), edgePoint(step05, 'left'), 'h'), 'output');
+        }
+
+        startAnim();
+      }
+
+      function initFlow() {
+        drawPaths();
+        if (!dots.length) {
+          setTimeout(drawPaths, 150);
+          setTimeout(drawPaths, 500);
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        clearTimeout(initFlow._t);
+        initFlow._t = setTimeout(drawPaths, 120);
+      }, { passive: true });
+
+      window.addEventListener('load', initFlow);
+      if (document.readyState === 'complete') initFlow();
+      else document.addEventListener('DOMContentLoaded', initFlow);
     })();
   </script>
 </body>
