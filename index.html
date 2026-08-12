@@ -313,6 +313,46 @@
       .footer-inner{grid-template-columns:1fr}
       .band,.pilot{padding:18px}
     }
+
+    .launch-pop{
+      margin:0;border:1px solid var(--line);border-radius:12px;background:#fff;
+      box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden;
+      opacity:0;transform:translateY(-8px);max-height:0;
+      pointer-events:none;transition:opacity .35s ease,transform .35s ease,max-height .35s ease,margin .35s ease
+    }
+    .launch-pop.is-visible{
+      opacity:1;transform:translateY(0);max-height:120px;
+      pointer-events:auto;margin:20px 0 0
+    }
+    .launch-pop.is-dismissed{display:none}
+    .launch-pop-inner{
+      display:flex;align-items:center;gap:16px;padding:14px 18px;flex-wrap:wrap
+    }
+    .launch-pop-badge{
+      display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:999px;
+      background:#eef3ff;color:#3b6fd4;font-size:11px;font-weight:600;letter-spacing:.02em;flex:0 0 auto
+    }
+    .launch-pop-body{flex:1;min-width:200px}
+    .launch-pop-body h3{margin:0;font-size:15px;line-height:1.25;letter-spacing:-.02em;font-weight:700}
+    .launch-pop-body p{margin:2px 0 0;font-size:13px;line-height:1.45;color:var(--muted)}
+    .launch-pop-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto;margin-left:auto}
+    .launch-pop-link{
+      display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:7px;
+      background:#0f1113;color:#fff;font-size:12px;font-weight:600;white-space:nowrap
+    }
+    .launch-pop-link svg{width:14px;height:14px;display:block}
+    .launch-pop-close{
+      width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#666;
+      display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;
+      transition:background .15s ease,color .15s ease
+    }
+    .launch-pop-close:hover{background:#f3f3f1;color:#111}
+    .launch-pop-close svg{width:16px;height:16px;display:block}
+    @media (max-width:720px){
+      .launch-pop.is-visible{max-height:200px}
+      .launch-pop-inner{align-items:flex-start;padding:14px 16px}
+      .launch-pop-actions{width:100%;justify-content:space-between;margin-left:0}
+    }
   </style>
 </head>
 <body>
@@ -336,6 +376,25 @@
   </header>
 
   <main class="wrap">
+    <aside class="launch-pop" id="launchPop" role="dialog" aria-labelledby="launchPopTitle" aria-hidden="true">
+      <div class="launch-pop-inner">
+        <span class="launch-pop-badge">New Launch</span>
+        <div class="launch-pop-body">
+          <h3 id="launchPopTitle">Sharath-V01 is here</h3>
+          <p>Our new open interior intelligence model for zero-shot object detection — built for architects and designers.</p>
+        </div>
+        <div class="launch-pop-actions">
+          <a class="launch-pop-link" href="sharath-v01.html">
+            Read more
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <button class="launch-pop-close" type="button" id="launchPopClose" aria-label="Close announcement">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
     <section class="hero">
       <div class="hero-card">
         <div class="hero-grid">
@@ -546,6 +605,7 @@
   </main>
 
   <section id="demo" style="height:1px"></section>
+
   <script>
     (function () {
       const container = document.getElementById('magnetLines');
@@ -835,6 +895,37 @@
       window.addEventListener('load', initFlow);
       if (document.readyState === 'complete') initFlow();
       else document.addEventListener('DOMContentLoaded', initFlow);
+    })();
+
+    (function () {
+      var pop = document.getElementById('launchPop');
+      var closeBtn = document.getElementById('launchPopClose');
+      if (!pop || !closeBtn) return;
+
+      var storageKey = 'hallohom-sharath-v01-popup-dismissed';
+
+      function closePop() {
+        pop.classList.remove('is-visible');
+        pop.classList.add('is-dismissed');
+        pop.setAttribute('aria-hidden', 'true');
+        try { localStorage.setItem(storageKey, '1'); } catch (e) {}
+      }
+
+      closeBtn.addEventListener('click', closePop);
+
+      try {
+        if (localStorage.getItem(storageKey) === '1') {
+          pop.classList.add('is-dismissed');
+          return;
+        }
+      } catch (e) {}
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          pop.classList.add('is-visible');
+          pop.setAttribute('aria-hidden', 'false');
+        }, 600);
+      });
     })();
   </script>
 </body>
