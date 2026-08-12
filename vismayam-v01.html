@@ -347,6 +347,13 @@
     .milestone-stats strong{color:#111;font-weight:700}
     .milestone-note{margin:12px 0 0;font-size:12px;line-height:1.55;color:#999}
 
+    .myrecord{
+      margin:28px 0;padding:14px 0 14px 18px;border-left:3px solid var(--line)
+    }
+    .myrecord p{margin:0 0 6px;font-size:15px;line-height:1.65;color:#333}
+    .myrecord p:last-child{margin-bottom:0}
+    .myrecord em{font-style:italic;color:#666;font-size:14px}
+
     .paper-toc{
       position:sticky;top:110px;padding-top:8px
     }
@@ -535,7 +542,7 @@
               <p class="vlm-glance-title">At a Glance (Latest Available Scale)</p>
               <div class="vlm-glance-grid" id="vlmGlance"></div>
             </div>
-            <p class="vlm-note">Note: Parameter counts are approximate. MoE = Mixture of Experts. Updated May 2026.</p>
+            <p class="vlm-note">Note: Parameter counts are approximate. MoE = Mixture of Experts. Updated August 2026.</p>
           </div>
           <p class="figure-caption">From general vision-language models to interior-specialized spatial grounding.</p>
         </section>
@@ -562,6 +569,11 @@
             only the most obvious objects.
           </p>
 
+          <aside class="myrecord">
+            <p><strong>Internal Evaluation:</strong> 91% accuracy, 89% F1-score</p>
+            <p><em>Evaluated on our internal test dataset.</em></p>
+          </aside>
+
           <div class="bench-table-wrap">
             <table class="bench-table">
               <thead>
@@ -574,23 +586,23 @@
               <tbody>
                 <tr class="highlight">
                   <td>Vismayam-V01</td>
-                  <td>73</td>
-                  <td>98.25%</td>
+                  <td>72</td>
+                  <td>91%</td>
                 </tr>
                 <tr>
                   <td>YOLO-World</td>
-                  <td>30</td>
-                  <td>85%</td>
+                  <td>32</td>
+                  <td>84%</td>
                 </tr>
                 <tr>
                   <td>Gemini</td>
-                  <td>42</td>
-                  <td>56%</td>
+                  <td>45</td>
+                  <td>68%</td>
                 </tr>
                 <tr>
                   <td>OpenAI</td>
-                  <td>18</td>
-                  <td>23.252%</td>
+                  <td>20</td>
+                  <td>42%</td>
                 </tr>
               </tbody>
             </table>
@@ -602,8 +614,8 @@
               <div class="detection-meta">
                 <h4>Vismayam-V01</h4>
                 <div class="detection-stats">
-                  <span><strong>73</strong> instances</span>
-                  <span><strong>98.25%</strong> accuracy</span>
+                  <span><strong>72</strong> instances</span>
+                  <span><strong>91%</strong> accuracy</span>
                 </div>
               </div>
             </article>
@@ -612,8 +624,8 @@
               <div class="detection-meta">
                 <h4>YOLO-World</h4>
                 <div class="detection-stats">
-                  <span><strong>30</strong> instances</span>
-                  <span><strong>85%</strong> accuracy</span>
+                  <span><strong>32</strong> instances</span>
+                  <span><strong>84%</strong> accuracy</span>
                 </div>
               </div>
             </article>
@@ -622,8 +634,8 @@
               <div class="detection-meta">
                 <h4>Gemini</h4>
                 <div class="detection-stats">
-                  <span><strong>42</strong> instances</span>
-                  <span><strong>56%</strong> accuracy</span>
+                  <span><strong>45</strong> instances</span>
+                  <span><strong>68%</strong> accuracy</span>
                 </div>
               </div>
             </article>
@@ -632,8 +644,8 @@
               <div class="detection-meta">
                 <h4>OpenAI</h4>
                 <div class="detection-stats">
-                  <span><strong>18</strong> instances</span>
-                  <span><strong>23.252%</strong> accuracy</span>
+                  <span><strong>20</strong> instances</span>
+                  <span><strong>42%</strong> accuracy</span>
                 </div>
               </div>
             </article>
@@ -652,7 +664,7 @@
                 <h4>Vismayam-V01 · Latest Evaluation</h4>
                 <div class="milestone-stats">
                   <span><strong>250</strong> total detections</span>
-                  <span><strong>97.7%</strong> accuracy</span>
+                  <span><strong>88%</strong> accuracy</span>
                 </div>
               </div>
             </article>
@@ -897,8 +909,8 @@
         {
           id: 'vismayam', name: 'Vismayam-V01', color: '#111111',
           points: [
-            { month: 30, label: '300M', date: 'Jan 2026', params: 3e8 },
-            { month: 33, label: '~1B', date: 'Apr 2026', params: 1e9 }
+            { month: 35, label: '300M', date: 'Jun 2026', params: 3e8 },
+            { month: 36, label: '~1B', date: 'Jul 2026', params: 1e9 }
           ],
           latest: '~300M–1B',
           desc: 'Small, efficient model optimized for interior spatial grounding and edge deployment.'
