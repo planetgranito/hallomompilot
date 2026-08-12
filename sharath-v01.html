@@ -107,6 +107,173 @@
       margin-top:12px;font-size:13px;line-height:1.6;color:#7a7a76;text-align:center
     }
 
+    .vlm-chart{
+      margin:48px 0;border:1px solid var(--line);border-radius:12px;background:#fff;
+      overflow:hidden;position:relative
+    }
+    .vlm-chart-header{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+      padding:20px 20px 0;flex-wrap:wrap
+    }
+    .vlm-chart-header h3{
+      margin:0;font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase
+    }
+    .vlm-chart-header p{margin:4px 0 0;font-size:12px;color:#7a7a76}
+    .vlm-badge{
+      font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;
+      background:#eef3ff;color:#3b6fd4;white-space:nowrap
+    }
+    .vlm-chart-body{position:relative;padding:8px 12px 0}
+    .vlm-chart-body svg{width:100%;height:auto;display:block;touch-action:none}
+    .vlm-series{transition:opacity .22s ease}
+    .vlm-series .vlm-line{transition:stroke-width .22s ease,opacity .22s ease}
+    .vlm-series .vlm-dot{transition:r .22s ease,opacity .22s ease}
+    .vlm-series .vlm-label{transition:opacity .22s ease,font-weight .22s ease;font-size:10px;fill:#444}
+    .vlm-chart.is-focused .vlm-series{opacity:.14}
+    .vlm-chart.is-focused .vlm-series.is-active{opacity:1}
+    .vlm-chart.is-focused .vlm-series.is-active .vlm-line{stroke-width:3.5}
+    .vlm-chart.is-focused .vlm-series.is-active .vlm-dot{r:5.5}
+    .vlm-chart.is-focused .vlm-series.is-active .vlm-label{font-weight:700;fill:#111}
+    .vlm-hit{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke;cursor:pointer}
+    .vlm-grid line{stroke:#ececea;stroke-width:1}
+    .vlm-axis text{font-size:10px;fill:#888}
+    .vlm-axis line,.vlm-axis path{stroke:#ddd}
+    .vlm-today line{stroke:#bbb;stroke-dasharray:4 4}
+    .vlm-today text{font-size:10px;fill:#666;font-weight:600}
+    .vlm-tooltip{
+      position:absolute;z-index:5;pointer-events:none;opacity:0;
+      transform:translate(-50%,calc(-100% - 12px));transition:opacity .15s ease;
+      min-width:180px;max-width:240px;padding:12px 14px;border-radius:10px;
+      background:#0f1113;color:#fff;font-size:12px;line-height:1.5;
+      box-shadow:0 8px 24px rgba(0,0,0,.22)
+    }
+    .vlm-tooltip.visible{opacity:1}
+    .vlm-tooltip strong{display:block;font-size:13px;margin-bottom:4px}
+    .vlm-tooltip span{color:#b8b8b4}
+    .vlm-tooltip .vlm-tip-meta{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:#ccc}
+    .vlm-glance{
+      padding:16px 20px 20px;border-top:1px solid var(--line);background:#fafaf8
+    }
+    .vlm-glance-title{
+      margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:.06em;
+      text-transform:uppercase;color:#666
+    }
+    .vlm-glance-grid{
+      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px
+    }
+    .vlm-glance-card{
+      border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px;
+      cursor:pointer;transition:opacity .22s ease,border-color .22s ease,box-shadow .22s ease
+    }
+    .vlm-glance-card:hover,.vlm-glance-card.is-active{
+      border-color:#111;box-shadow:0 4px 14px rgba(0,0,0,.08)
+    }
+    .vlm-chart.is-focused .vlm-glance-card{opacity:.45}
+    .vlm-chart.is-focused .vlm-glance-card.is-active{opacity:1}
+    .vlm-glance-card-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+    .vlm-glance-dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+    .vlm-glance-card h4{margin:0;font-size:12px;font-weight:600;line-height:1.3}
+    .vlm-glance-card .vlm-scale{font-size:11px;font-weight:600;color:#333;margin-bottom:0}
+    .vlm-note{
+      margin:0;padding:12px 20px 16px;font-size:11px;line-height:1.55;color:#999;
+      border-top:1px solid var(--line)
+    }
+
+    .bench-chart{
+      margin:48px 0;border:1px solid var(--line);border-radius:12px;background:#fff;
+      overflow:hidden;position:relative
+    }
+    .bench-chart-header{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+      padding:20px 20px 16px;flex-wrap:wrap;border-bottom:1px solid var(--line)
+    }
+    .bench-chart-header h3{
+      margin:0;font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase
+    }
+    .bench-chart-header p{margin:4px 0 0;font-size:12px;color:#7a7a76;max-width:520px}
+    .bench-grid{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0
+    }
+    .bench-panel{
+      padding:18px 20px 20px;border-bottom:1px solid var(--line);
+      position:relative
+    }
+    .bench-panel:nth-child(odd){border-right:1px solid var(--line)}
+    .bench-panel-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;min-height:44px}
+    .bench-panel-icon{
+      width:28px;height:28px;border-radius:8px;background:#eef3ff;color:#3b6fd4;
+      display:flex;align-items:center;justify-content:center;flex:0 0 auto
+    }
+    .bench-panel-icon svg{width:14px;height:14px;display:block}
+    .bench-panel-head h4{margin:0;font-size:12px;font-weight:700;line-height:1.35;letter-spacing:.01em}
+    .bench-panel-head span{display:block;margin-top:2px;font-size:10px;color:#999;font-weight:500}
+    .bench-rows{display:flex;flex-direction:column;gap:8px}
+    .bench-row{
+      display:grid;grid-template-columns:24px minmax(0,1fr) 42px;gap:8px;align-items:center;
+      cursor:pointer;transition:opacity .22s ease;position:relative
+    }
+    .bench-row-logo{
+      width:24px;height:24px;border-radius:6px;overflow:hidden;background:#f5f5f3;
+      display:flex;align-items:center;justify-content:center
+    }
+    .bench-row-logo img{width:100%;height:100%;object-fit:contain}
+    .bench-row-body{min-width:0}
+    .bench-row-label{
+      font-size:10px;line-height:1.3;color:#444;margin-bottom:4px;white-space:nowrap;
+      overflow:hidden;text-overflow:ellipsis
+    }
+    .bench-row-label strong{font-weight:600;color:#111}
+    .bench-bar-track{
+      height:8px;border-radius:999px;background:#efefec;overflow:hidden
+    }
+    .bench-bar-fill{
+      height:100%;border-radius:999px;background:#d4d4d0;width:0;
+      transition:width .9s cubic-bezier(.22,1,.36,1),background .22s ease,opacity .22s ease
+    }
+    .bench-row.is-featured .bench-bar-fill{background:#3b82f6}
+    .bench-row.is-top .bench-bar-fill{background:#2563eb}
+    .bench-row-value{
+      font-size:11px;font-weight:700;color:#111;text-align:right
+    }
+    .bench-row-value.is-low{color:#dc2626}
+    .bench-chart.is-focused .bench-row{opacity:.22}
+    .bench-chart.is-focused .bench-row.is-active{opacity:1}
+    .bench-chart.is-focused .bench-row.is-active .bench-bar-fill{background:#111}
+    .bench-chart.is-focused .bench-row.is-active.is-featured .bench-bar-fill{background:#3b82f6}
+    .bench-legend{
+      display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;
+      padding:16px 20px;border-top:1px solid var(--line);background:#fafaf8
+    }
+    .bench-legend-item{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);
+      border-radius:999px;background:#fff;cursor:pointer;transition:opacity .22s ease,border-color .22s ease,box-shadow .22s ease
+    }
+    .bench-legend-item:hover,.bench-legend-item.is-active{
+      border-color:#111;box-shadow:0 4px 14px rgba(0,0,0,.08)
+    }
+    .bench-legend-item img{width:20px;height:20px;object-fit:contain}
+    .bench-legend-item span{font-size:11px;font-weight:600;color:#333;white-space:nowrap}
+    .bench-chart.is-focused .bench-legend-item{opacity:.4}
+    .bench-chart.is-focused .bench-legend-item.is-active{opacity:1}
+    .bench-tooltip{
+      position:absolute;z-index:6;pointer-events:none;opacity:0;
+      transform:translate(-50%,calc(-100% - 12px));transition:opacity .15s ease;
+      min-width:180px;max-width:260px;padding:12px 14px;border-radius:10px;
+      background:#0f1113;color:#fff;font-size:12px;line-height:1.5;
+      box-shadow:0 8px 24px rgba(0,0,0,.22)
+    }
+    .bench-tooltip.visible{opacity:1}
+    .bench-tooltip strong{display:block;font-size:13px;margin-bottom:4px}
+    .bench-tooltip span{color:#b8b8b4;display:block}
+    .bench-tooltip .bench-tip-meta{
+      margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);
+      font-size:11px;color:#ccc
+    }
+    .bench-note{
+      margin:0;padding:12px 20px 16px;font-size:11px;line-height:1.55;color:#999;
+      border-top:1px solid var(--line)
+    }
+
     .paper-section{
       max-width:var(--article);
       padding:48px 0 0;
@@ -203,6 +370,12 @@
       .paper-lede,.paper-section p{font-size:16px}
       .detection-grid{grid-template-columns:1fr}
       .footer-inner{grid-template-columns:1fr}
+      .vlm-glance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .bench-grid{grid-template-columns:1fr}
+      .bench-panel:nth-child(odd){border-right:0}
+    }
+    @media (max-width:480px){
+      .vlm-glance-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -260,10 +433,20 @@
           </div>
         </header>
 
-        <figure class="figure-block">
-          <img src="https://i.ibb.co/kVF7kTvj/Chat-GPT-Image-Aug-12-2026-11-33-42-AM.png" alt="Vision detection benchmark overview comparing Sharath-V01 with other models">
-          <figcaption class="figure-caption">Vision detection benchmarks across interior object localization tasks.</figcaption>
-        </figure>
+        <div class="bench-chart" id="benchChart" aria-label="Vision detection benchmarks chart">
+          <div class="bench-chart-header">
+            <div>
+              <h3>Vision Detection Benchmarks</h3>
+              <p>Zero-shot open-vocabulary object detection and localization on interior imagery — hover a model to focus</p>
+            </div>
+            <span class="vlm-badge">Interior Benchmarks</span>
+          </div>
+          <div class="bench-grid" id="benchGrid"></div>
+          <div class="bench-legend" id="benchLegend"></div>
+          <div class="bench-tooltip" id="benchTooltip" aria-hidden="true"></div>
+          <p class="bench-note">Note: Results are averaged over multiple interior datasets and public benchmarks. Higher is better for all metrics.</p>
+        </div>
+        <p class="figure-caption">Vision detection benchmarks across interior object localization tasks.</p>
 
         <section id="early-access" class="paper-section">
           <h2>Early Access</h2>
@@ -305,10 +488,25 @@
             on tiles, furniture, sanitary fixtures, architectural elements, and other fine-grained objects, enabling the
             model to convert natural-language queries into precise spatial detections.
           </p>
-          <figure class="figure-block">
-            <img src="https://i.ibb.co/pBw5R5pt/Chat-GPT-Image-Aug-12-2026-12-07-48-PM.png" alt="Evolution of vision-language models toward interior spatial grounding">
-            <figcaption class="figure-caption">From general vision-language models to interior-specialized spatial grounding.</figcaption>
-          </figure>
+          <div class="vlm-chart" id="vlmChart" aria-label="Open VLM model size evolution chart">
+            <div class="vlm-chart-header">
+              <div>
+                <h3>Open VLM Model Size Evolution</h3>
+                <p>Parameter count over time — hover a line or card to focus</p>
+              </div>
+              <span class="vlm-badge">Only Open-Source VLMs</span>
+            </div>
+            <div class="vlm-chart-body">
+              <svg id="vlmSvg" viewBox="0 0 720 340" role="img" aria-hidden="true"></svg>
+              <div class="vlm-tooltip" id="vlmTooltip" aria-hidden="true"></div>
+            </div>
+            <div class="vlm-glance">
+              <p class="vlm-glance-title">At a Glance (Latest Available Scale)</p>
+              <div class="vlm-glance-grid" id="vlmGlance"></div>
+            </div>
+            <p class="vlm-note">Note: Parameter counts are approximate. MoE = Mixture of Experts. Updated May 2026.</p>
+          </div>
+          <p class="figure-caption">From general vision-language models to interior-specialized spatial grounding.</p>
         </section>
 
         <section id="detection" class="paper-section">
@@ -410,10 +608,6 @@
             </article>
           </div>
 
-          <figure class="figure-block">
-            <img src="https://i.ibb.co/kVF7kTvj/Chat-GPT-Image-Aug-12-2026-11-33-42-AM.png" alt="Vision detection benchmarks comparison chart">
-            <figcaption class="figure-caption">Vision Detection Benchmarks — qualitative and quantitative comparison across models.</figcaption>
-          </figure>
         </section>
 
         <section id="architecture" class="paper-section">
@@ -567,6 +761,505 @@
 
       window.addEventListener('scroll', updateActive, { passive: true });
       updateActive();
+    })();
+
+    (function () {
+      var chart = document.getElementById('vlmChart');
+      var svg = document.getElementById('vlmSvg');
+      var glance = document.getElementById('vlmGlance');
+      var tooltip = document.getElementById('vlmTooltip');
+      if (!chart || !svg || !glance) return;
+
+      var models = [
+        {
+          id: 'qwen', name: 'Qwen2.5-VL', color: '#d64545',
+          points: [
+            { month: 15, label: '3B', date: 'Oct 2024', params: 3e9 },
+            { month: 18, label: '7B', date: 'Jan 2025', params: 7e9 },
+            { month: 20, label: '72B', date: 'May 2025', params: 72e9 }
+          ],
+          latest: '72B (2.8T)',
+          desc: 'State-of-the-art open VLM with strongest multimodal reasoning and understanding.'
+        },
+        {
+          id: 'internvl', name: 'InternVL3', color: '#3b6fd4',
+          points: [
+            { month: 12, label: '26B', date: 'Jul 2024', params: 26e9, note: 'InternVL2.5' },
+            { month: 15, label: '38B', date: 'Oct 2024', params: 38e9 },
+            { month: 18, label: '78B', date: 'Jan 2025', params: 78e9 }
+          ],
+          latest: '78B (1.8T)',
+          desc: 'Leading open-source VLM with excellent performance across benchmarks.'
+        },
+        {
+          id: 'llama4', name: 'Llama 4', color: '#2d9d4f',
+          points: [
+            { month: 21, label: '17B', date: 'Apr 2025', params: 17e9, note: 'Scout (16 Experts)' },
+            { month: 27, label: '17B', date: 'Oct 2025', params: 17e9, note: 'Maverick (128 Experts MoE)' }
+          ],
+          latest: '17B MoE',
+          desc: 'High-performing MoE model with strong multimodal and coding capabilities.'
+        },
+        {
+          id: 'molmo', name: 'Molmo', color: '#7b5ea7',
+          points: [
+            { month: 3, label: '7B', date: 'Oct 2023', params: 7e9 },
+            { month: 12, label: '72B', date: 'Jul 2024', params: 72e9 }
+          ],
+          latest: '72B',
+          desc: 'Fully open multimodal model with strong spatial and visual reasoning.'
+        },
+        {
+          id: 'aya', name: 'Aya Vision', color: '#e8913a',
+          points: [
+            { month: 6, label: '8B', date: 'Jan 2024', params: 8e9 },
+            { month: 18, label: '32B', date: 'Jan 2025', params: 32e9 }
+          ],
+          latest: '32B',
+          desc: 'Multilingual open vision model with broad language coverage.'
+        },
+        {
+          id: 'llama32', name: 'Llama 3.2 Vision', color: '#9a7b2f',
+          points: [
+            { month: 3, label: '11B', date: 'Oct 2023', params: 11e9 },
+            { month: 30, label: '90B', date: 'Jan 2026', params: 90e9 }
+          ],
+          latest: '90B',
+          desc: 'Meta vision-language line scaling toward high-capacity multimodal understanding.'
+        },
+        {
+          id: 'pixtral', name: 'Pixtral', color: '#2aa8a0',
+          points: [
+            { month: 12, label: '12B', date: 'Jul 2024', params: 12e9 }
+          ],
+          latest: '12B',
+          desc: 'Efficient open VLM optimized for document and image understanding.'
+        },
+        {
+          id: 'phi4', name: 'Phi-4-Multimodal', color: '#666666',
+          points: [
+            { month: 21, label: '~5B', date: 'Apr 2025', params: 5e9 }
+          ],
+          latest: '~5B',
+          desc: 'Compact multimodal model designed for efficient on-device inference.'
+        },
+        {
+          id: 'sharath', name: 'Sharath-V01', color: '#111111',
+          points: [
+            { month: 30, label: '300M', date: 'Jan 2026', params: 3e8 },
+            { month: 33, label: '~1B', date: 'Apr 2026', params: 1e9 }
+          ],
+          latest: '~300M–1B',
+          desc: 'Small, efficient model optimized for interior spatial grounding and edge deployment.'
+        }
+      ];
+
+      var margin = { top: 28, right: 20, bottom: 36, left: 52 };
+      var width = 720;
+      var height = 340;
+      var plotW = width - margin.left - margin.right;
+      var plotH = height - margin.top - margin.bottom;
+      var yMin = 1e8;
+      var yMax = 1e13;
+      var monthsTotal = 36;
+      var yTicks = [
+        { v: 1e8, label: '100M' },
+        { v: 1e9, label: '1B' },
+        { v: 1e10, label: '10B' },
+        { v: 1e11, label: '100B' },
+        { v: 1e12, label: '1T' },
+        { v: 3e12, label: '3T' },
+        { v: 1e13, label: '10T' }
+      ];
+      var xTicks = [
+        { m: 0, label: 'Jul 2023' },
+        { m: 6, label: 'Jan 2024' },
+        { m: 12, label: 'Jul 2024' },
+        { m: 18, label: 'Jan 2025' },
+        { m: 24, label: 'Jul 2025' },
+        { m: 30, label: 'Jan 2026' },
+        { m: 36, label: 'Jul 2026' }
+      ];
+
+      function xScale(month) {
+        return margin.left + (month / monthsTotal) * plotW;
+      }
+      function yScale(params) {
+        var t = (Math.log10(params) - Math.log10(yMin)) / (Math.log10(yMax) - Math.log10(yMin));
+        return margin.top + plotH - t * plotH;
+      }
+      function fmtParams(n) {
+        if (n >= 1e12) return (n / 1e12).toFixed(n >= 3e12 ? 0 : 1).replace(/\.0$/, '') + 'T';
+        if (n >= 1e9) return (n / 1e9).toFixed(0) + 'B';
+        if (n >= 1e6) return (n / 1e6).toFixed(0) + 'M';
+        return String(n);
+      }
+
+      var ns = 'http://www.w3.org/2000/svg';
+      function el(tag, attrs) {
+        var node = document.createElementNS(ns, tag);
+        Object.keys(attrs || {}).forEach(function (key) {
+          node.setAttribute(key, attrs[key]);
+        });
+        return node;
+      }
+
+      var grid = el('g', { class: 'vlm-grid' });
+      yTicks.forEach(function (tick) {
+        var y = yScale(tick.v);
+        grid.appendChild(el('line', { x1: margin.left, y1: y, x2: margin.left + plotW, y2: y }));
+      });
+      svg.appendChild(grid);
+
+      var yAxis = el('g', { class: 'vlm-axis' });
+      yTicks.forEach(function (tick) {
+        var y = yScale(tick.v);
+        var text = el('text', { x: margin.left - 8, y: y + 3, 'text-anchor': 'end' });
+        text.textContent = tick.label;
+        yAxis.appendChild(text);
+      });
+      svg.appendChild(yAxis);
+
+      var xAxis = el('g', { class: 'vlm-axis' });
+      xTicks.forEach(function (tick) {
+        var x = xScale(tick.m);
+        var text = el('text', { x: x, y: height - 10, 'text-anchor': 'middle' });
+        text.textContent = tick.label;
+        xAxis.appendChild(text);
+      });
+      svg.appendChild(xAxis);
+
+      var todayX = xScale(36);
+      var today = el('g', { class: 'vlm-today' });
+      today.appendChild(el('line', { x1: todayX, y1: margin.top, x2: todayX, y2: margin.top + plotH }));
+      var todayText = el('text', { x: todayX - 4, y: margin.top - 8, 'text-anchor': 'end' });
+      todayText.textContent = 'Today';
+      today.appendChild(todayText);
+      svg.appendChild(today);
+
+      var activeId = null;
+
+      function showTooltip(html, clientX, clientY) {
+        tooltip.innerHTML = html;
+        tooltip.classList.add('visible');
+        var rect = chart.querySelector('.vlm-chart-body').getBoundingClientRect();
+        var left = clientX - rect.left;
+        var top = clientY - rect.top;
+        left = Math.max(100, Math.min(rect.width - 100, left));
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+      }
+      function hideTooltip() {
+        tooltip.classList.remove('visible');
+      }
+      function setFocus(id, point) {
+        activeId = id;
+        chart.classList.add('is-focused');
+        chart.querySelectorAll('.vlm-series, .vlm-glance-card').forEach(function (node) {
+          node.classList.toggle('is-active', node.getAttribute('data-model') === id);
+        });
+        var model = models.find(function (m) { return m.id === id; });
+        if (!model) return;
+        var html = '<strong>' + model.name + '</strong><span>' + model.latest + '</span><div class="vlm-tip-meta">' + model.desc + '</div>';
+        if (point) {
+          html = '<strong>' + model.name + '</strong><span>' + point.label + ' · ' + point.date + '</span>' +
+            (point.note ? '<div class="vlm-tip-meta">' + point.note + '</div>' : '') +
+            '<div class="vlm-tip-meta">' + fmtParams(point.params) + ' parameters</div>';
+        }
+        return html;
+      }
+      function clearFocus() {
+        activeId = null;
+        chart.classList.remove('is-focused');
+        chart.querySelectorAll('.vlm-series, .vlm-glance-card').forEach(function (node) {
+          node.classList.remove('is-active');
+        });
+        hideTooltip();
+      }
+
+      models.forEach(function (model) {
+        var group = el('g', { class: 'vlm-series', 'data-model': model.id });
+        var pathD = '';
+        model.points.forEach(function (pt, i) {
+          var x = xScale(pt.month);
+          var y = yScale(pt.params);
+          if (i === 0) {
+            pathD += 'M' + x + ',' + y;
+          } else {
+            var prev = model.points[i - 1];
+            pathD += ' H' + x + ' V' + y;
+          }
+        });
+
+        var last = model.points[model.points.length - 1];
+        var endX = xScale(Math.min(last.month + 1.5, 36));
+        pathD += ' H' + endX;
+
+        var line = el('path', {
+          class: 'vlm-line',
+          d: pathD,
+          fill: 'none',
+          stroke: model.color,
+          'stroke-width': '2',
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round'
+        });
+        var hit = el('path', {
+          class: 'vlm-hit',
+          d: pathD,
+          'data-model': model.id
+        });
+        group.appendChild(line);
+        group.appendChild(hit);
+
+        model.points.forEach(function (pt) {
+          var cx = xScale(pt.month);
+          var cy = yScale(pt.params);
+          var dot = el('circle', {
+            class: 'vlm-dot',
+            cx: cx,
+            cy: cy,
+            r: '4',
+            fill: model.color,
+            stroke: '#fff',
+            'stroke-width': '1.5',
+            'data-model': model.id
+          });
+          dot.style.cursor = 'pointer';
+          group.appendChild(dot);
+        });
+
+        var label = el('text', {
+          class: 'vlm-label',
+          x: endX + 4,
+          y: yScale(last.params) + 3,
+          fill: model.color
+        });
+        label.textContent = model.name;
+        group.appendChild(label);
+
+        function bindHover(el, point) {
+          el.addEventListener('mouseenter', function (e) {
+            var html = setFocus(model.id, point || null);
+            showTooltip(html, e.clientX, e.clientY);
+          });
+          el.addEventListener('mousemove', function (e) {
+            if (activeId !== model.id) return;
+            showTooltip(setFocus(model.id, point || null), e.clientX, e.clientY);
+          });
+        }
+
+        bindHover(hit);
+        bindHover(line);
+        group.querySelectorAll('.vlm-dot').forEach(function (dot, i) {
+          bindHover(dot, model.points[i]);
+        });
+        group.addEventListener('mouseleave', function (e) {
+          if (!group.contains(e.relatedTarget)) clearFocus();
+        });
+
+        svg.appendChild(group);
+
+        var card = document.createElement('div');
+        card.className = 'vlm-glance-card';
+        card.setAttribute('data-model', model.id);
+        card.innerHTML =
+          '<div class="vlm-glance-card-head">' +
+            '<span class="vlm-glance-dot" style="background:' + model.color + '"></span>' +
+            '<h4>' + model.name + '</h4>' +
+          '</div>' +
+          '<div class="vlm-scale">' + model.latest + '</div>';
+        card.addEventListener('mouseenter', function (e) {
+          showTooltip(setFocus(model.id), e.clientX, e.clientY);
+        });
+        card.addEventListener('mousemove', function (e) {
+          if (activeId !== model.id) return;
+          showTooltip(setFocus(model.id), e.clientX, e.clientY);
+        });
+        card.addEventListener('mouseleave', clearFocus);
+        glance.appendChild(card);
+      });
+
+      chart.addEventListener('mouseleave', clearFocus);
+    })();
+
+    (function () {
+      var chart = document.getElementById('benchChart');
+      var grid = document.getElementById('benchGrid');
+      var legend = document.getElementById('benchLegend');
+      var tooltip = document.getElementById('benchTooltip');
+      if (!chart || !grid || !legend) return;
+
+      var models = {
+        nvidia: {
+          id: 'nvidia', org: 'NVIDIA', name: 'LocateAnything-3B',
+          logo: 'https://i.ibb.co/fYQSFntF/nvidialogo.webp',
+          desc: 'Large-scale spatial grounding model for open-vocabulary localization.'
+        },
+        sharath: {
+          id: 'sharath', org: 'FlopAI', name: 'Sharath-V01',
+          logo: 'https://i.ibb.co/XZdjDyPW/flopailogo.webp', featured: true,
+          desc: 'Interior-specialized zero-shot detector optimized for tiles, fixtures, and furniture.'
+        },
+        yolo26: {
+          id: 'yolo26', org: 'Ultralytics', name: 'YOLO26',
+          logo: 'https://i.ibb.co/Y4j060bn/yolologo.webp',
+          desc: 'Latest YOLO generation with improved real-time detection performance.'
+        },
+        rfdetr: {
+          id: 'rfdetr', org: 'RF-DETR', name: 'RT-DETRv2',
+          logo: 'https://i.ibb.co/bMYSdmNG/rf-detr.webp',
+          desc: 'Real-time DETR variant for transformer-based object detection.'
+        },
+        idea: {
+          id: 'idea', org: 'IDEA', name: 'IDEA-Research',
+          logo: 'https://i.ibb.co/763szXK/idea-reaserchlog.webp',
+          desc: 'Research-line detector evaluated on open-vocabulary interior tasks.'
+        },
+        yolo12: {
+          id: 'yolo12', org: 'Ultralytics', name: 'YOLO12',
+          logo: 'https://i.ibb.co/Y4j060bn/yolologo.webp',
+          desc: 'Prior-generation YOLO baseline for comparison on interior benchmarks.'
+        }
+      };
+
+      var metrics = [
+        {
+          id: 'zeroshot',
+          title: 'Zero-Shot Object Localization',
+          subtitle: 'mAP@0.5',
+          icon: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/>',
+          scores: { nvidia: 72.6, sharath: 71.3, yolo26: 63.4, rfdetr: 53.7, idea: 46.8, yolo12: 39.1 }
+        },
+        {
+          id: 'granularity',
+          title: 'Interior Element Granularity',
+          subtitle: 'Tile & fixture precision',
+          icon: '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>',
+          scores: { sharath: 68.9, nvidia: 62.1, yolo26: 58.4, rfdetr: 51.0, idea: 43.2, yolo12: 36.5 }
+        },
+        {
+          id: 'openvocab',
+          title: 'Open-Vocabulary Text-Query Matching',
+          subtitle: 'Higher is better',
+          icon: '<path d="M7 8h10"/><path d="M7 12h7"/><path d="M7 16h10"/><rect x="4" y="5" width="16" height="14" rx="2"/>',
+          scores: { sharath: 65.7, nvidia: 59.2, yolo26: 56.3, rfdetr: 48.9, idea: 42.1, yolo12: 35.0 }
+        },
+        {
+          id: 'visdrone',
+          title: 'High-Resolution Scene Localization',
+          subtitle: 'VisDrone mAP@0.5',
+          icon: '<path d="M4 8h16v10H4z"/><path d="M9 8l3-3 3 3"/>',
+          scores: { sharath: 62.8, nvidia: 58.3, yolo26: 55.2, rfdetr: 47.6, idea: 39.8, yolo12: 32.1 }
+        }
+      ];
+
+      var activeId = null;
+      var maxScore = 80;
+
+      function showTooltip(html, clientX, clientY) {
+        tooltip.innerHTML = html;
+        tooltip.classList.add('visible');
+        var body = chart;
+        var rect = body.getBoundingClientRect();
+        var left = Math.max(110, Math.min(rect.width - 110, clientX - rect.left));
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = (clientY - rect.top) + 'px';
+      }
+      function hideTooltip() {
+        tooltip.classList.remove('visible');
+      }
+      function setFocus(id, metricTitle, score) {
+        activeId = id;
+        chart.classList.add('is-focused');
+        chart.querySelectorAll('[data-bench-model]').forEach(function (node) {
+          node.classList.toggle('is-active', node.getAttribute('data-bench-model') === id);
+        });
+        var model = models[id];
+        if (!model) return '';
+        var html = '<strong>' + model.org + ' · ' + model.name + '</strong>';
+        if (metricTitle && score != null) {
+          html += '<span>' + metricTitle + ': ' + score + '</span>';
+        }
+        html += '<div class="bench-tip-meta">' + model.desc + '</div>';
+        return html;
+      }
+      function clearFocus() {
+        activeId = null;
+        chart.classList.remove('is-focused');
+        chart.querySelectorAll('[data-bench-model]').forEach(function (node) {
+          node.classList.remove('is-active');
+        });
+        hideTooltip();
+      }
+      function bindFocus(node, id, metricTitle, score) {
+        node.addEventListener('mouseenter', function (e) {
+          showTooltip(setFocus(id, metricTitle, score), e.clientX, e.clientY);
+        });
+        node.addEventListener('mousemove', function (e) {
+          if (activeId !== id) return;
+          showTooltip(setFocus(id, metricTitle, score), e.clientX, e.clientY);
+        });
+      }
+
+      metrics.forEach(function (metric) {
+        var panel = document.createElement('div');
+        panel.className = 'bench-panel';
+        panel.innerHTML =
+          '<div class="bench-panel-head">' +
+            '<div class="bench-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + metric.icon + '</svg></div>' +
+            '<div><h4>' + metric.title + '</h4><span>' + metric.subtitle + '</span></div>' +
+          '</div>' +
+          '<div class="bench-rows"></div>';
+        var rows = panel.querySelector('.bench-rows');
+        var entries = Object.keys(metric.scores).map(function (id) {
+          return { id: id, score: metric.scores[id], model: models[id] };
+        }).sort(function (a, b) { return b.score - a.score; });
+        var minScore = entries[entries.length - 1].score;
+
+        entries.forEach(function (entry, index) {
+          var row = document.createElement('div');
+          row.className = 'bench-row';
+          row.setAttribute('data-bench-model', entry.id);
+          if (entry.model.featured) row.classList.add('is-featured');
+          if (index === 0) row.classList.add('is-top');
+          var pct = (entry.score / maxScore) * 100;
+          row.innerHTML =
+            '<div class="bench-row-logo"><img src="' + entry.model.logo + '" alt="' + entry.model.org + '"></div>' +
+            '<div class="bench-row-body">' +
+              '<div class="bench-row-label"><strong>' + entry.model.org + '</strong> (' + entry.model.name + ')</div>' +
+              '<div class="bench-bar-track"><div class="bench-bar-fill" style="--w:' + pct + '%"></div></div>' +
+            '</div>' +
+            '<div class="bench-row-value' + (entry.score === minScore ? ' is-low' : '') + '">' + entry.score + '</div>';
+          bindFocus(row, entry.id, metric.title, entry.score);
+          rows.appendChild(row);
+        });
+        grid.appendChild(panel);
+      });
+
+      Object.keys(models).forEach(function (id) {
+        var model = models[id];
+        var item = document.createElement('div');
+        item.className = 'bench-legend-item';
+        item.setAttribute('data-bench-model', id);
+        item.innerHTML = '<img src="' + model.logo + '" alt="' + model.org + '"><span>' + model.org + '</span>';
+        bindFocus(item, id, null, null);
+        legend.appendChild(item);
+      });
+
+      chart.addEventListener('mouseleave', function (e) {
+        if (!chart.contains(e.relatedTarget)) clearFocus();
+      });
+
+      var fills = chart.querySelectorAll('.bench-bar-fill');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.style.width = entry.target.style.getPropertyValue('--w');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+      fills.forEach(function (fill) { observer.observe(fill); });
     })();
   </script>
 </body>
