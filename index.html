@@ -317,12 +317,10 @@
     .launch-pop{
       margin:0;border:1px solid var(--line);border-radius:12px;background:#fff;
       box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden;
-      opacity:0;transform:translateY(-8px);max-height:0;
-      pointer-events:none;transition:opacity .35s ease,transform .35s ease,max-height .35s ease,margin .35s ease
+      display:none
     }
     .launch-pop.is-visible{
-      opacity:1;transform:translateY(0);max-height:120px;
-      pointer-events:auto;margin:20px 0 0
+      display:block;margin:20px 0 0
     }
     .launch-pop.is-dismissed{display:none}
     .launch-pop-inner{
@@ -349,7 +347,6 @@
     .launch-pop-close:hover{background:#f3f3f1;color:#111}
     .launch-pop-close svg{width:16px;height:16px;display:block}
     @media (max-width:720px){
-      .launch-pop.is-visible{max-height:200px}
       .launch-pop-inner{align-items:flex-start;padding:14px 16px}
       .launch-pop-actions{width:100%;justify-content:space-between;margin-left:0}
     }
@@ -376,7 +373,7 @@
   </header>
 
   <main class="wrap">
-    <aside class="launch-pop" id="launchPop" role="dialog" aria-labelledby="launchPopTitle" aria-hidden="true">
+    <aside class="launch-pop" id="launchPop" role="region" aria-label="New launch announcement" aria-hidden="true">
       <div class="launch-pop-inner">
         <span class="launch-pop-badge">New Launch</span>
         <div class="launch-pop-body">
@@ -898,6 +895,16 @@
     })();
 
     (function () {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      function scrollTop() { window.scrollTo(0, 0); }
+      scrollTop();
+      window.addEventListener('load', scrollTop);
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) scrollTop();
+      });
+    })();
+
+    (function () {
       var pop = document.getElementById('launchPop');
       var closeBtn = document.getElementById('launchPopClose');
       if (!pop || !closeBtn) return;
@@ -921,9 +928,11 @@
       } catch (e) {}
 
       window.addEventListener('load', function () {
+        window.scrollTo(0, 0);
         setTimeout(function () {
           pop.classList.add('is-visible');
           pop.setAttribute('aria-hidden', 'false');
+          window.scrollTo(0, 0);
         }, 600);
       });
     })();
