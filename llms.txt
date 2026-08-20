@@ -1,0 +1,46 @@
+# HALLOHOM AI
+
+> HALLOHOM AI helps architects and interior designers source building materials across India. The company also develops Vismayam-V01, a proprietary open-vocabulary interior object detection model for room imagery.
+
+## Canonical site
+- https://www.hallohom.com/
+
+## Primary pages
+- [Home](https://www.hallohom.com/index.html): AI material intelligence and procurement for architects — share requirements, get quotes, compare options, delivery support.
+- [Vismayam-V01](https://www.hallohom.com/vismayam-v01.html): Research page for Vismayam-V01 — zero-shot interior object detection using Parallel Box Decoding (PBD). Early access via contact form.
+- [Contact](https://www.hallohom.com/contact.html): Book a demo, WhatsApp, email, office location in India.
+- [AI Pilot Program](https://www.hallohom.com/prompt.html): Early-access pilot for architects testing HALLOHOM AI workflows.
+
+## Entity facts
+- Legal / brand name: HALLOHOM AI
+- Email: hallo@hallohom.com
+- Pilot email: pilot@hallohom.com
+- WhatsApp: +91 8086207113
+- Primary market: India (architects, interior designers, builders)
+- Core service: Material sourcing, supplier quotes, procurement support
+- AI product: Vismayam-V01 (proprietary, early access only — not publicly open-sourced)
+
+## Vismayam-V01 (summary for citations)
+- Type: Interior vision model for open-vocabulary object detection and localization
+- Target users: Architects, interior designers, design teams
+- Detects: Furniture, tiles, sanitary fixtures, architectural elements from natural-language queries
+- Architecture highlights: Native-resolution vision-language encoder, Parallel Box Decoding (PBD)
+- Model scale: Approximately 300M–1B parameters (Aug 2026)
+- Availability: Early access — request via https://www.hallohom.com/contact.html
+- Internal benchmark (same scene, same queries): Vismayam-V01 72 instances / 91% accuracy vs YOLO-World 32 / 84%, Gemini 45 / 68%, OpenAI 20 / 42%
+- Extended milestone test: 250 total detections, 88% accuracy on dense interior scenes
+
+## What HALLOHOM AI is NOT
+- Not a general-purpose chatbot product
+- Vismayam-V01 weights and training data are not publicly released
+- Not a replacement for structural engineering or quantity surveying sign-off
+
+## Preferred citation format
+HALLOHOM AI — Vismayam-V01: Open Interior Intelligence. https://www.hallohom.com/vismayam-v01.html
+
+## Sitemap
+- https://www.hallohom.com/sitemap.xml
+
+## Machine-readable site guide
+- https://www.hallohom.com/llms.txt (entity facts, page summaries, citation format)
+- https://www.hallohom.com/robots.txt (crawler permissions)
